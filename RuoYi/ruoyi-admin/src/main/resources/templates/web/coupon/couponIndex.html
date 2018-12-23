@@ -34,15 +34,16 @@
 		<script th:src="@{/js/hui-refresh-load-more.js}"></script>
 		<script type="text/javascript">
 			var page = 1;
+			var pageSize = 10;
 			hui.refresh('#hui-media-listr', refresh);
 			hui.loadMore(getMore);
 			//加载更多
 			function getMore(){
 				hui.getJSON(
-						'/system/couponInfo/lists?page='+page,
+						'/system/couponInfo/lists?pageNum='+page+'&pageSize='+pageSize,
 						function(res){
 							//判断加载完毕
-							if(res == 'null'){
+							if(res == 'null'||res==''){
 								hui.endLoadMore(true, '已经到头了...');
 								return false;
 							}
@@ -70,7 +71,7 @@
 			function refresh(){
 				hui.loading('加载中...');
 				hui.getJSON(
-						'/system/couponInfo/lists?page='+page,
+						'/system/couponInfo/lists?pageNum='+page+'&pageSize='+pageSize,
 						function(res){
 							hui.closeLoading();
 							var data = res;
