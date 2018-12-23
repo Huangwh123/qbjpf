@@ -71,7 +71,7 @@
 			function refresh(){
 				hui.loading('加载中...');
 				hui.getJSON(
-						'/system/couponInfo/lists?pageNum='+page+'&pageSize='+pageSize,
+						'/system/couponInfo/lists?pageNum=1&pageSize='+pageSize,
 						function(res){
 							hui.closeLoading();
 							var data = res;
