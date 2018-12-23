@@ -12,19 +12,16 @@
 	<body>
 		<style>
 			.aoqp aside{
-    		color: #E32014;
+    			color: #E32014;
 				 }
 			.quancolor {
-    		background-color: #F12F4F;
-    		border-radius: 3px;
-    		height: 20px;
-    		color: #FFF;
+    			background-color: #F12F4F;
+    			border-radius: 3px;
+    			height: 20px;
+    			color: #FFF;
+				margin-left: 10px;
    }
 		</style>
-		<header class="hui-header" style="background-color: red;">
-			<div id="hui-back"></div>
-			<h1>青平鹏飞 - 淘宝优惠卷</h1>
-		</header>
 		<div class="hui-wrap" style="background-color: white;">
 			<div class="hui-media-listr" id="hui-media-listr">
 				<div class="hui-refresh-icon"></div>
@@ -49,10 +46,11 @@
 								hui.endLoadMore(true, '已经到头了...');
 								return false;
 							}
+							var data = res;
 							for(var i = 0; i < data.length; i++){
 								var li = document.createElement('li');
 
-								li.innerHTML = '<li><a href="javascript:hui.toast(\'hi...\');">'+
+								li.innerHTML = '<a href="javascript:hui.toast(\'hi...\');">'+
 										'<div class="hui-media-list-img"><img  src="'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
 										+'<div class="aoqp"><aside>'
 										+'￥<span style="color: red;">'+data[i].discountPrice+'</span><span class="quancolor">券后价</span></aside></div></p>'
