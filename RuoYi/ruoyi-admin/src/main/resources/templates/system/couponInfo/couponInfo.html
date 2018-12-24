@@ -11,7 +11,11 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								优惠卷来源：<input type="text" name="couponSource"/>
+								优惠卷来源:<select name="couponSource" th:with="type=${@dict.getType('getaway_coupon_source')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+								</select>
+
 							</li>
 
 							<li>
@@ -23,7 +27,11 @@
 							</li>
 
 							<li>
-								商品种类：<input type="text" name="couponType"/>
+								商品种类：<select name="couponType" th:with="type=${@dict.getType('getaway_coupon_type')}">
+								<option value="">所有</option>
+								<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+							</select>
+
 							</li>
 
 							<li>
@@ -39,7 +47,11 @@
 							</li>
 
 							<li>
-								商品状态：<input type="text" name="tradeState"/>
+								商品状态：<select name="tradeState" th:with="type=${@dict.getType('getaway_coupon_state')}">
+								<option value="">所有</option>
+								<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" ></option>
+							</select>
+
 							</li>
 
 							<li>
@@ -48,18 +60,6 @@
 
 							<li>
 								优惠劵复制文本：<input type="text" name="couponText"/>
-							</li>
-
-							<li>
-								优惠劵链接：<input type="text" name="couponUrl"/>
-							</li>
-
-							<li>
-								创建时间：<input type="text" name="createDate"/>
-							</li>
-
-							<li>
-								更新时间：<input type="text" name="updateDate"/>
 							</li>
 
 							<li>
@@ -95,8 +95,11 @@
         var editFlag = [[${@permission.hasPermi('system:couponInfo:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:couponInfo:remove')}]];
         var prefix = ctx + "system/couponInfo";
+		var coupon_source_data = [[${@dict.getType('getaway_coupon_source')}]];
+		var coupon_type_data = [[${@dict.getType('getaway_coupon_type')}]];
+		var coupon_state_data = [[${@dict.getType('getaway_coupon_state')}]];
 
-        $(function() {
+		$(function() {
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
@@ -117,7 +120,10 @@
 				{
 					field : 'couponSource', 
 					title : '优惠卷来源:',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(coupon_source_data, value);
+					}
 				},
 				{
 					field : 'fullName', 
@@ -132,7 +138,10 @@
 				{
 					field : 'couponType', 
 					title : '商品种类:',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(coupon_type_data, value);
+					}
 				},
 				{
 					field : 'couponPrice', 
@@ -152,7 +161,11 @@
 				{
 					field : 'tradeState', 
 					title : '商品状态:',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(coupon_state_data, value);
+					}
+
 				},
 				{
 					field : 'tradePicture', 
