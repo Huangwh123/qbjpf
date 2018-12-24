@@ -2,6 +2,7 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/cropbox/cropbox.css}" rel="stylesheet"/>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-couponInfo-add">
@@ -62,7 +63,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">	
+			<div class="form-group" style="display: none;">
 				<label class="col-sm-3 control-label">商品图片：</label>
 				<div class="col-sm-8">
 					<input id="tradePicture" name="tradePicture" class="form-control" type="text">
@@ -80,6 +81,25 @@
 					<input id="couponUrl" name="couponUrl" class="form-control" type="text">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">文件上传：</label>
+				<div class="col-sm-8">
+					<div class="container">
+						<div class="imageBox">
+							<div class="thumbBox"></div>
+							<div class="spinner" style="display: none">Loading...</div>
+						</div>
+						<div class="action">
+							<div class="new-contentarea tc">
+								<a href="javascript:void(0)" class="upload-img"> <label for="avatar">上传图像</label> </a>
+								<input type="file" class="" name="avatar" id="avatar" accept="image/*"/>
+							</div>
+							<input type="button" id="btnZoomIn" class="Btnsty_peyton" value="+" />
+							<input type="button" id="btnZoomOut" class="Btnsty_peyton" value="-" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</form>
 	</div>
     <div th:include="include::footer"></div>
@@ -94,10 +114,64 @@
 		});
 		
 		function submitHandler() {
+			var imgurl='';
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-couponInfo-add').serialize());
+					var img = cropper.getBlob();
+					var formdata = new FormData();
+					formdata.append("avatarfile", img);
+					$.ajax({
+						url: ctx + "system/user/profile/updateCoupon",
+						data: formdata,
+						type: "post",
+						async:false,
+						processData: false,
+						contentType: false,
+						success: function(result) {
+							if (result.code==0) {
+								$("#tradePicture").val(result.msg);
+							}
+							else{
+								return false;
+							}
+						}
+					})
+				$.operate.save(prefix + "/add", $('#form-couponInfo-add').serialize());
 	        }
 	    }
+	</script>
+	<script th:src="@{/ajax/libs/cropbox/cropbox.js}"></script>
+	<script type="text/javascript">
+		var cropper;
+		$(window).load(function() {
+			var avatar = '';
+			var options = {
+				thumbBox: '.thumbBox',
+				spinner: '.spinner',
+			}
+			cropper = $('.imageBox').cropbox(options);
+			$('#avatar').on('change', function() {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					options.imgSrc = e.target.result;
+					//根据MIME判断上传的文件是不是图片类型
+					if((options.imgSrc).indexOf("image/")==-1){
+						parent.layer.alert("文件格式错误，请上传图片类型,如：JPG,JEPG，PNG后缀的文件。", {icon: 2,title:"系统提示"});
+					} else {
+						cropper = $('.imageBox').cropbox(options);
+					}
+				}
+				reader.readAsDataURL(this.files[0]);
+			})
+			$('#btnZoomIn').on('click', function(){
+				cropper.zoomIn();
+			})
+
+			$('#btnZoomOut').on('click', function(){
+				cropper.zoomOut();
+			})
+		});
+
+
 	</script>
 </body>
 </html>
