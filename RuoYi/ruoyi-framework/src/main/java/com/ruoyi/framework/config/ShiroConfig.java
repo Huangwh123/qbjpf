@@ -254,6 +254,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
         filterChainDefinitionMap.put("/system/couponInfo/couponInfoIndex", "anon,captchaValidate");
         filterChainDefinitionMap.put("/system/couponInfo/lists", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/system/couponInfo/queryById/*", "anon,captchaValidate");
 
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());

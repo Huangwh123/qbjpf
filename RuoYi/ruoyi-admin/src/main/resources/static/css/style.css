@@ -5368,8 +5368,8 @@ del {
     }
 
     50% {
-        -webkit-transform: perspective(120px)  rotateX(-180 .1deg )  rotateY(0deg);
-        transform: perspective(120px)  rotateX(-180 .1deg )  rotateY(0deg);
+        -webkit-transform: perspective(120px)  rotateX(-180.1deg )  rotateY(0deg);
+        transform: perspective(120px)  rotateX(-180.1deg )  rotateY(0deg);
     }
 
     100% {
@@ -7346,4 +7346,275 @@ body.skin-yellow {
     background-color: #ffffff!important;
     border-color: #cccccc!important;
 }
+.goods_quan {
+    position: relative;
+    z-index: 1;
+    zoom: 1
+}
+
+.goods_quan img {
+    display: block;
+    width: 100%
+}
+
+.goods_quan .row {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    zoom: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center
+}
+
+.goods_quan .row .money {
+    font-size: .785rem;
+    color: rgba(255, 255, 255, .6);
+    padding-top: 6%;
+    line-height: 1.3rem;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    left: .3rem
+}
+
+.goods_quan .row .money p {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff
+}
+
+.goods_quan .row .money p span {
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    top: .1rem
+}
+
+.goods_quan .row .name {
+    line-height: 100%;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    top: 50%;
+    margin-top: -.6rem;
+    text-align: left;
+    font-weight: 600
+}
+
+.goods_quan .row .name span {
+    margin-left: 15%
+}
+
+.goods_quan:before {
+    content: "";
+    width: 2px;
+    height: 55%;
+    background: url(../img/hr.png?v=2018-12-24);
+    -webkit-background-size: auto 100%;
+    -moz-background-size: auto 100%;
+    background-size: auto 100%;
+    position: absolute;
+    z-index: 1;
+    zoom: 1;
+    left: 64%;
+    top: 20%;
+    display: block
+}
+.row-s .col-12-4,
+.row-s .col-12-8
+{
+    float: left
+}
+.row-s .col-12-4 {
+    width: 33.33333333%
+}
+.row-s .col-12-8 {
+    width: 66.66666667%
+}
+
+#xywxobg {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    z-index: 9998;
+}
+#weixin-tt.quanpost {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 20%;
+    bottom: auto;
+    width: 80%;
+    height: auto;
+    margin: 0 0 0 -40%;
+    background: #fff;
+    border-radius: 12px;
+    z-index: 9999;
+    height: 414px;
+}
+.yhq_fc_title {
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    height: 40px;
+    background-color: #ff464e;
+    color: #fff;
+    border-top: #e4e4e4 1px solid;
+    border-left: #e4e4e4 1px solid;
+    border-right: #e4e4e4 1px solid;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.am-close {
+    float: right;
+    font-size: 36px;
+    margin-top: 3px;
+    margin-right: 10px;
+    color: white;
+    font-weight: 100;
+    opacity: 1;
+}
+.am-text-left {
+    text-align: left !important;
+}
+#weixin-tt.quanpost .fq-goods {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 30px;
+}
+.fq-goods {
+    border: 2px dashed #ffd4de;
+    background: #fff6f8;
+    margin: 10px;
+}
+.am-text-center {
+    text-align: center !important;
+}
+.am-form-field {
+    border: 0;
+}
+.am-text-mss {
+    font-size: 1.0rem;
+}
+.xywxti {
+    text-align: center;
+    font-size: 18px;
+}
+.goodsprice {
+    height: 35px;
+    line-height: 35px;
+    width: 100%;
+    max-width: 750px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 10px;
+    background: #fff;
+    display: -webkit-box;
+    -webkit-box-align: center;
+}
+.goodsprice .trueprice {
+    display: block;
+    font-size: 18px;
+    color: #f45454;
+    margin-right: 8px;
+    font-weight: 500;
+    font-family: arial;
+}
+.wxts {
+    font-size: 12px;
+    color: #f90c49;
+    padding-left: 10px;
+}
+.wxts2 {
+    font-size: 12px;
+    color: #071efb;
+    padding-left: 10px;
+}
+#weixin-tt .copybtn {
+    width: 85%;
+    margin-top: 10px;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+    font: bold 16px/20px simsun;
+    background: #f30;
+    border-radius: 6px;
+    border: 0px;
+}
+.better_change {
+    border: 1px dashed #ffd4de;
+}
+.better_change h3 {
+    font-weight: normal;
+    color: #f8285c;
+    text-align: center;
+    border-bottom: 1px dashed #ffd4de;
+    background: #fff6f8;
+    opacity: .8;
+    padding: 1% 0;
+    font-size: 12px;
+}
+.better_change .better_show {
+    padding: 2%;
+    margin: 0 auto;
+}
+.clear {
+    zoom: 1;
+    clear: both;
+}
+.clear:after, .clear:before {
+    content: "";
+    display: table;
+}
+.clear:after {
+    clear: both;
+    overflow: hidden;
+}
+.clear:after {
+    clear: both;
+    overflow: hidden;
+}
+.clear:after, .clear:before {
+    content: "";
+    display: table;
+}
+.better_change .better_show li {
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+.better_info i {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+    background: url(../img/better_change.png) no-repeat;
+    background-size: 220px auto;
+}
+.better_info span {
+    display: block;
+    margin-top: 10%;
+    font-size: 12px;
+    color: #999;
+}
+.better_info .xs {
+    background-position: -33px 0;
+}
+.better_info .cx {
+    background-position: -73px 0;
+}
+.better_info .tj {
+    background-position: -111px 0;
+}
+
 

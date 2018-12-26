@@ -141,4 +141,14 @@ public class CouponInfoController extends BaseController
 		List<CouponInfo> list = couponInfoService.selectCouponInfoList(couponInfo);
 		return list;
 	}
+	/**
+	 * 优惠卷详情页
+	 */
+	@GetMapping("/queryById/{id}")
+	public String queryById(@PathVariable("id") Long id, ModelMap mmap)
+	{
+		CouponInfo couponInfo = couponInfoService.selectCouponInfoById(id);
+		mmap.put("couponInfo", couponInfo);
+		return "web/coupon/couponDetailst";
+	}
 }

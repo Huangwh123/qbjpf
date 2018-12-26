@@ -334,19 +334,19 @@ input[type="month"].hui-picker-valued:before,input[type="date"].hui-picker-value
 @-o-keyframes hui-a-menu-hide{0%{right:0%;} 100%{right:-70%}}
 .hui-slide-menu-hide{-webkit-animation:hui-a-menu-hide 0.3s forwards; animation:hui-a-menu-hide 0.3s forwards;}
 /* img cuter */
-#hui-img-cuter{width:100%; position:absolute; left:0; top:44px; z-index:2; background:rgb(255,255,255,0);}
+#hui-img-cuter{width:100%; position:absolute; left:0; top:44px; z-index:2; background:rgba(255,255,255,0);}
 #hui-img-cuter-img{width:100%; overflow:hidden; font-size:0;}
 #hui-img-cuter-img img{width:100%;}
 #hui-img-cuter-canvas{position:fixed; z-index:3; top:100px; right:10px; width:100px; border:1px solid #FFFFFF; font-size:0px;}
 #hui-img-cuter-canvas canvas{width:100%;}
-#hui-img-cuter-select{width:100; overflow:hidden; text-align:center; background:#F4F5F6; position:relative;}
+#hui-img-cuter-select{width:100%; overflow:hidden; text-align:center; background:#F4F5F6; position:relative;}
 #hui-img-cuter-file{width:100%; height:500px; background:rgba(255, 255, 255, 0); filter:Alpha(opacity=0); opacity:0; font-size:0px; position:absolute; z-index:1; left:0; top:0;}
 #hui-img-cuter-t1{line-height:100px; padding-top:50px; font-size:100px; color:#B8BBBF;}
 #hui-img-cuter-t2{line-height:50px; padding-bottom:30px; font-size:16px; color:#B8BBBF;}
 /* header search */
 #hui-header-sreach{width:100%; border-radius:5px; height:32px; margin:6px; display:flex; background:#FFFFFF;}
 #hui-header-sreach-icon{width:36px; height:36px; line-height:36px; text-align:center; flex-shrink:0;}
-#hui-header-sreach-icon::before{font-family:"hui-font"; content:'\e714'; font-size:25; height:36px; line-height:36px; color:#9E9E9E;}
+#hui-header-sreach-icon::before{font-family:"hui-font"; content:'\e714'; font-size:25px; height:36px; line-height:36px; color:#9E9E9E;}
 #hui-header-sreach input{width:100%; padding:0px; height:32px !important; line-height:32px !important; margin:0px !important; -webkit-appearance:none; -moz-appearance:none; appearance:none; border:0; font-size:14px; text-indent:10px;}
 .hui-header-sreach-txt{width:58px; height:44px; text-align:center; line-height:44px; flex-shrink:0; color:#FFF; flex-shrink:0;}
 /* swipe do */
@@ -381,16 +381,70 @@ input[type="month"].hui-picker-valued:before,input[type="date"].hui-picker-value
 .hui-tags-active::after{content:"\e68b"; font-family:"hui-font"; padding-left:5px;}
 /* count down */
 .hui-countdown{text-align:center;}
-.hui-countdown span{background:#333 !important; display:inline-block; line-height:20px !important; color:#FFF !important; padding:0px 5px !important; border-radius:3px !important; margin:0px 2px;}
+
+.hui-countdown span {
+    background: #333 !important;
+    display: inline-block;
+    line-height: 20px !important;
+    color: #FFF !important;
+    padding: 0px 5px !important;
+    border-radius: 3px !important;
+    margin: 0px 2px;
+}
+
 /* scroll news */
 .hui-scroll-news{height:28px; line-height:28px; margin:10px;}
 .hui-scroll-news-items{height:28px; line-height:28px; white-space:nowrap; text-overflow:ellipsis;}
-.hui-scroll-news-items > a{display:block; overflow:hidden; line-height:28px; white-space:nowrap; text-overflow:ellipsis;}
-@keyframes hui-scroll-news-h0{0%{height:28px;} 100%{height:0px;}}
-@-webkit-keyframes hui-scroll-news-h0{0%{height:28px;} 100%{height:0px;}}100%{-webkit-transform:rotate(360deg);}}
-@-moz-keyframes hui-scroll-news-h0{0%{height:28px;} 100%{height:0px;}}
+
+.hui-scroll-news-items > a {
+    display: block;
+    overflow: hidden;
+    line-height: 28px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@keyframes hui-scroll-news-h0 {
+    0% {
+        height: 28px;
+    }
+    100% {
+        height: 0px;
+    }
+}
+
+@-webkit-keyframes hui-scroll-news-h0 {
+    0% {
+        height: 28px;
+    }
+    100% {
+        height: 0px;
+    }
+
+
+    100%
+    {
+    -webkit-transform: rotate(360deg);
+    }
+    }
+@-moz-keyframes hui-scroll-news-h0 {
+    0% {
+        height: 28px;
+    }
+    100% {
+        height: 0px;
+    }
+}
+
 @-o-keyframes hui-scroll-news-h0{0%{height:28px;} 100%{height:0px;}}
-.hui-scroll-news-h0{animation:hui-scroll-news-h0 600ms linear forwards; -webkit-animation:hui-scroll-news-h0 600ms linear forwards; -moz-animation:hui-scroll-news-h0 600ms forwards linear; -o-animation:hui-scroll-news-h0 600ms forwards linear;}
+
+.hui-scroll-news-h0 {
+    animation: hui-scroll-news-h0 600ms linear forwards;
+    -webkit-animation: hui-scroll-news-h0 600ms linear forwards;
+    -moz-animation: hui-scroll-news-h0 600ms forwards linear;
+    -o-animation: hui-scroll-news-h0 600ms forwards linear;
+}
+
 /* cropper */
 .cropper-container{direction:ltr;font-size:0;line-height:0;position:relative;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
 .cropper-container img{display:block; height:100%; image-orientation:0deg; max-height:none!important; max-width:none!important; min-height:0!important; min-width:0!important; width:100%;}
@@ -435,7 +489,7 @@ input[type="month"].hui-picker-valued:before,input[type="date"].hui-picker-value
 .hui-icons{font-family:"hui-font" !important; font-style:normal; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding-right:8px;}
 .hui-icons-menu:before{content:"\e634";} .hui-icons-toast:before{content:"\e689";} .hui-icons-img:before{content:"\e620";}
 .hui-icons-left:before{content:"\e6a5";} .hui-icons-right:before{content:"\e608";} .hui-icons-number:before{content:"\e604";}
-.hui-icons-up:before{content:"\e649";}  .hui-icons-up2:before{content:"\e655";} .hui-icons-down:before{content:"\e744";} 
+.hui-icons-up:before{content:"\e649";}  .hui-icons-up2:before{content:"\e655";} .hui-icons-down:before{content:"\e744";}
 .hui-icons-down2:before{content:"\e609";} .hui-icons-progress:before{content:"\e615";}
 .hui-icons-success:before{content:"\e632";} .hui-icons-error:before{content:"\e638";} .hui-icons-range:before{content:"\e613";}
 .hui-icons-warn:before{content:"\e603";} .hui-icons-click:before{content:"\e75b";} .hui-icons-tab:before{content:"\e667";}
@@ -445,12 +499,12 @@ input[type="month"].hui-picker-valued:before,input[type="date"].hui-picker-value
 .hui-icons-swipe:before{content:"\e699";} .hui-icons-media-list:before{content:"\e62d";} .hui-icons-my:before{content:"\e618";}
 .hui-icons-forum:before{content:"\e602";} .hui-icons-shop:before{content:"\e67f";} .hui-icons-nav:before{content:"\e606";}
 .hui-icons-menu-point:before{content:"\e60e";} .hui-icons-menu-point2:before{content:"\e625";} .hui-icons-star:before{content:"\e661";}
-.hui-icons-msg:before{content:"\e60b";} .hui-icons-help:before{content:"\e652";} .hui-icons-water-fall:before{content:"\e60c";} 
-.hui-icons-search:before{content:'\e714';} .hui-icons-img-cut:before{content:'\e612';} .hui-icons-register:before{content:'\e677';} 
-.hui-icons-write:before{content:'\e646';} .hui-icons-logoff:before{content:'\e610';} .hui-icons-check:before{content:'\e866';} 
-.hui-icons-loading2:before{content:"\e61e";} .hui-icons-insert:before{content:"\e6ee";} .hui-icons-clone:before{content:"\e6dc";} 
-.hui-icons-remove:before{content:"\e656";} .hui-icons-edit:before{content:"\e600";} .hui-icons-like:before{content:"\e64a";} 
-.hui-icons-pause:before{content:"\e96b";} .hui-icons-play:before{content:"\e6b1";} .hui-icons-stop:before{content:"\e61b";} 
+.hui-icons-msg:before{content:"\e60b";} .hui-icons-help:before{content:"\e652";} .hui-icons-water-fall:before{content:"\e60c";}
+.hui-icons-search:before{content:'\e714';} .hui-icons-img-cut:before{content:'\e612';} .hui-icons-register:before{content:'\e677';}
+.hui-icons-write:before{content:'\e646';} .hui-icons-logoff:before{content:'\e610';} .hui-icons-check:before{content:'\e866';}
+.hui-icons-loading2:before{content:"\e61e";} .hui-icons-insert:before{content:"\e6ee";} .hui-icons-clone:before{content:"\e6dc";}
+.hui-icons-remove:before{content:"\e656";} .hui-icons-edit:before{content:"\e600";} .hui-icons-like:before{content:"\e64a";}
+.hui-icons-pause:before{content:"\e96b";} .hui-icons-play:before{content:"\e6b1";} .hui-icons-stop:before{content:"\e61b";}
 .hui-icons-shopping-cart:before{content:"\e633";} .hui-icons-close:before{content:"\e617";}
 .fontbig label, li{
 	font-size: 15px;

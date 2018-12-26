@@ -45,8 +45,18 @@ public class CouponInfo extends BaseEntity
 	private Date createDate;
 	/** 更新时间 */
 	private Date updateDate;
+	/**使用期限 */
+	private String serviceLife;
 
-	public void setId(Long id) 
+	public String getServiceLife() {
+		return serviceLife;
+	}
+
+	public void setServiceLife(String serviceLife) {
+		this.serviceLife = serviceLife;
+	}
+
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
@@ -172,6 +182,8 @@ public class CouponInfo extends BaseEntity
 	{
 		return updateDate;
 	}
+
+
 
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

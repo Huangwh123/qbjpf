@@ -51,8 +51,8 @@
 							for(var i = 0; i < data.length; i++){
 								var li = document.createElement('li');
 
-								li.innerHTML = '<a href="javascript:hui.toast(\'hi...\');">'+
-										'<div class="hui-media-list-img"><img  src="/profile/avatar/'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
+								li.innerHTML = '<a href="/system/couponInfo/queryById/'+data[i].id+'">'+
+										'<div class="hui-media-list-img"><img  src="'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
 										+'<div class="aoqp"><aside>'
 										+'￥<span style="color: red;">'+data[i].discountPrice+'</span><span class="quancolor">券后价</span></aside></div></p>'
 										+'<p><del style="color: #999999;font-size: 10px;">￥'+ data[i].originalPrice+'</del> </p></div>'
@@ -77,8 +77,8 @@
 							var data = res;
 							var html = '';
 							for(var i = 0; i < data.length; i++){
-								html += '<li><a href="javascript:hui.toast(\'hi...\');">'+
-										'<div class="hui-media-list-img"><img  src="/profile/avatar/'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
+								html += '<li><a href="/system/couponInfo/queryById/'+data[i].id+'">'+
+										'<div class="hui-media-list-img"><img  src="'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
 										+'<div class="aoqp"><aside>'
 										+'￥<span style="color: red;">'+data[i].discountPrice+'</span><span class="quancolor">券后价</span></aside></div></p>'
 										+'<p><del style="color: #999999;font-size: 10px;">￥'+ data[i].originalPrice+'</del> </p></div>'
