@@ -7,6 +7,7 @@
     <title>青平鹏飞淘宝优惠劵</title>
     <link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <script th:src="@{/js/clipboard.min.js}"></script>
 </head>
 <body>
 <div class="hui-wrap" style="background-color: #FFFFFF;">
@@ -43,6 +44,7 @@
             尚培轩加深披萨盘，可微波炉加热，多码任选，受热面积大，加热快，清洗简单，居家必备！享你所想，尽享美味时刻。
         </ul>
     </div>
+    </button>
     <div class="better_change" style="background-color: #FFFFFF;">
         <h3>精挑细选</h3>
         <ul class="better_show clear">
@@ -84,20 +86,19 @@
 					<span id="copy_key_ios" style="height:60px;overflow: hidden; font-size: 10px;">
 						复制框内整段文字，打开「手机淘宝」即可「领取优惠券」并购买￥FYsVboBxdUZ￥
 					</span>
-            <textarea id="copy_key_pc" style="opacity: 0; height: 1px;">
-						</textarea>
+            <textarea id="copy_key_pc" style="opacity: 0; height: 0px; width: 0px">
+                        </textarea>
         </div>
     </div>
     <div class="xywxti"><img th:src="@{/img/ioscopy.png}" style="width:100%;max-width:650px"></div>
     <div class="goodsprice"><span class="trueprice">可领￥10券</span></div>
     <div class="wxts2">温馨提示:请尽快领券并下单，避免优惠券抢完、失效或涨价！</div>
     <center>
-        <button type="button" id="copyios" class="copybtn" data-clipboard-action="copy"
-                data-clipboard-target="#copy_key_ios" style="background-color: rgb(255, 51, 0);">一键复制
+        <button type="button" id="copyios" class="copybtn"
+                 style="background-color: rgb(255, 51, 0);">一键复制
         </button>
     </center>
 </div>
-
 <script th:src="@{/js/hui.js}"></script>
 <script type="text/javascript">
     function queryPass() {
@@ -109,17 +110,26 @@
         hui('#xywxobg').hide();
         hui('#weixin-tt').hide();
     });
-    hui('#copyios').click(function () {
+    hui('#copyios').click(function() {
         var text = document.getElementById("copy_key_ios").innerText;
         var input = document.getElementById("copy_key_pc");
         input.value = text
-        input.select();
+        input.focus();
         document.execCommand("copy");
-        hui.iconToast('复制成功,请打开手机淘宝', 'success');
-        hui('#copyios').html('复制成功');
-        hui('#copyios').css({
-            background: '#4CD964'
-        });
+        input.setSelectionRange(0, input.value.length);
+        if(document.execCommand('copy', false, null)){
+            hui.iconToast('复制成功,请打开手机淘宝', 'success');
+            hui('#copyios').html('复制成功');
+            hui('#copyios').css({
+                background: '#4CD964'
+            });
+        }
+        else{
+            hui.iconToast('复制失败,请打开手机淘宝', 'false');
+            alert("复制失败")
+        }
+
+
     });
 </script>
 </body>
