@@ -7,7 +7,6 @@
     <title>青平鹏飞淘宝优惠劵</title>
     <link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <script th:src="@{/js/clipboard.min.js}"></script>
 </head>
 <body>
 <div class="hui-wrap" style="background-color: #FFFFFF;">
@@ -26,6 +25,7 @@
             </li>
         </ul>
     </div>
+    </button>
     <div class="goods_quan row-s">
         <a class="row getGoodsLink" href="javascript:void(0);" onclick="queryPass()">
             <div class="col-12-8 money" style="font-size: 14px;" >
@@ -44,7 +44,6 @@
             尚培轩加深披萨盘，可微波炉加热，多码任选，受热面积大，加热快，清洗简单，居家必备！享你所想，尽享美味时刻。
         </ul>
     </div>
-    </button>
     <div class="better_change" style="background-color: #FFFFFF;">
         <h3>精挑细选</h3>
         <ul class="better_show clear">
@@ -110,26 +109,28 @@
         hui('#xywxobg').hide();
         hui('#weixin-tt').hide();
     });
-    hui('#copyios').click(function() {
-        var text = document.getElementById("copy_key_ios").innerText;
-        var input = document.getElementById("copy_key_pc");
-        input.value = text
-        input.focus();
-        document.execCommand("copy");
-        input.setSelectionRange(0, input.value.length);
-        if(document.execCommand('copy', false, null)){
-            hui.iconToast('复制成功,请打开手机淘宝', 'success');
-            hui('#copyios').html('复制成功');
-            hui('#copyios').css({
-                background: '#4CD964'
-            });
+</script>
+<script th:src="@{/js/clipboard.min.js}"></script>
+<script>
+    var copyText = document.getElementById("copy_key_ios").innerText;
+    var clipboard = new ClipboardJS('.copybtn', {
+        text: function() {
+            return copyText;
         }
-        else{
-            hui.iconToast('复制失败,请打开手机淘宝', 'false');
-            alert("复制失败")
-        }
+    });
 
+    clipboard.on('success', function(e) {
+        hui.iconToast('复制成功,请打开手机淘宝', 'success');
+        hui('#copyios').html('复制成功');
+        hui('#copyios').css({
+            background: '#4CD964'
+        });
+    });
 
+    clipboard.on('error', function(e) {
+        hui.iconToast('复制失败', 'false');
+        alert("复制失败")
+        console.log(e);
     });
 </script>
 </body>
