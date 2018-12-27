@@ -163,24 +163,19 @@ public class SysProfileController extends BaseController
     }
 
     /**
-     * 保存头像
-     */
+     * 优惠卷图片  腾讯云对象存储图片上传
+     * */
     @Log(title = "保存商品图片", businessType = BusinessType.UPDATE)
     @PostMapping("/updateCoupon")
     @ResponseBody
-    public AjaxResult updateCoupon(@RequestParam("avatarfile") MultipartFile file)
-    {
-        try
-        {
-            if (!file.isEmpty())
-            {
-                String avatar = FileUploadUtils.upload(Global.getAvatarPath(), file);
+    public AjaxResult updateCoupon(@RequestParam("avatarfile") MultipartFile file){
+        try {
+            if (!file.isEmpty()) {
+                String avatar = FileUploadUtils.uploadImgCos(file);
                 return AjaxResult.success(avatar);
             }
             return error();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error("上传商品信息图片失败！", e);
             return error(e.getMessage());
         }
