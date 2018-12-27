@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ruoyi</artifactId>
-        <groupId>com.ruoyi</groupId>
+        <artifactId>qbjpf</artifactId>
+        <groupId>com.qbjpf</groupId>
         <version>3.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 	<packaging>jar</packaging>
-    <artifactId>ruoyi-admin</artifactId>
+    <artifactId>qbjpf-admin</artifactId>
 	
 	<description>
 	    web服务入口
@@ -41,8 +41,8 @@
 
 		<!-- 核心模块-->
         <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-framework</artifactId>
+            <groupId>com.qbjpf</groupId>
+            <artifactId>qbjpf-framework</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
         
