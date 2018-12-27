@@ -40,7 +40,7 @@
 			//加载更多
 			function getMore(){
 				hui.getJSON(
-						'/system/couponInfo/lists?pageNum='+page+'&pageSize='+pageSize,
+						'/wx/list?pageNum='+page+'&pageSize='+pageSize,
 						function(res){
 							//判断加载完毕
 							if(res == 'null'||res==''){
@@ -51,7 +51,7 @@
 							for(var i = 0; i < data.length; i++){
 								var li = document.createElement('li');
 
-								li.innerHTML = '<a href="/system/couponInfo/queryById/'+data[i].id+'">'+
+								li.innerHTML = '<a href="/wx/detailsCoupon/'+data[i].id+'">'+
 										'<div class="hui-media-list-img"><img  src="'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
 										+'<div class="aoqp"><aside>'
 										+'￥<span style="color: red;">'+data[i].discountPrice+'</span><span class="quancolor">券后价</span></aside></div></p>'
@@ -71,13 +71,13 @@
 			function refresh(){
 				hui.loading('加载中...');
 				hui.getJSON(
-						'/system/couponInfo/lists?pageNum=1&pageSize='+pageSize,
+						'/wx/list?pageNum=1&pageSize='+pageSize,
 						function(res){
 							hui.closeLoading();
 							var data = res;
 							var html = '';
 							for(var i = 0; i < data.length; i++){
-								html += '<li><a href="/system/couponInfo/queryById/'+data[i].id+'">'+
+								html += '<li><a href="/wx/detailsCoupon/'+data[i].id+'">'+
 										'<div class="hui-media-list-img"><img  src="'+data[i].tradePicture+'"/></div><div class="hui-media-contents"><h1>'+data[i].abbreviationName+'</h1><p>'
 										+'<div class="aoqp"><aside>'
 										+'￥<span style="color: red;">'+data[i].discountPrice+'</span><span class="quancolor">券后价</span></aside></div></p>'

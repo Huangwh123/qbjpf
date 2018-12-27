@@ -1,10 +1,10 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,6 @@ import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
-
 /**
  * 优惠劵 信息操作处理
  * 
@@ -126,29 +125,16 @@ public class CouponInfoController extends BaseController
 	}
 
 
-	@GetMapping("/couponInfoIndex")
-	public String query(Model model,CouponInfo couponInfo ){
 
-		List<CouponInfo> couponList = couponInfoService.selectCouponInfoList(couponInfo);
-		model.addAttribute("couponList",couponList);
-		return "web/coupon/couponIndex";
-	}
-	@GetMapping("/lists")
+/*	@GetMapping("/lists")
 	@ResponseBody
-	public List<CouponInfo> lists(CouponInfo couponInfo)
+	public List<CouponInfo> lists(CouponInfo couponInfo, HttpServletResponse response)
 	{
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		startPage();
 		List<CouponInfo> list = couponInfoService.selectCouponInfoList(couponInfo);
 		return list;
-	}
-	/**
-	 * 优惠卷详情页
-	 */
-	@GetMapping("/queryById/{id}")
-	public String queryById(@PathVariable("id") Long id, ModelMap mmap)
-	{
-		CouponInfo couponInfo = couponInfoService.selectCouponInfoById(id);
-		mmap.put("couponInfo", couponInfo);
-		return "web/coupon/couponDetailst";
-	}
+	}*/
+
 }

@@ -252,9 +252,9 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
-        filterChainDefinitionMap.put("/system/couponInfo/couponInfoIndex", "anon,captchaValidate");
-        filterChainDefinitionMap.put("/system/couponInfo/lists", "anon,captchaValidate");
-        filterChainDefinitionMap.put("/system/couponInfo/queryById/*", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/couponInfoIndex", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/detailsCoupon/*", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/list", "anon,captchaValidate");
 
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());

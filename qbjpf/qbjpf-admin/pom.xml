@@ -8,8 +8,8 @@
         <version>3.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-	<packaging>jar</packaging>
-    <artifactId>qbjpf-admin</artifactId>
+	<packaging>war</packaging>
+    <artifactId>qbjpfweb</artifactId>
 	
 	<description>
 	    web服务入口
@@ -45,7 +45,17 @@
             <artifactId>qbjpf-framework</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.4.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
