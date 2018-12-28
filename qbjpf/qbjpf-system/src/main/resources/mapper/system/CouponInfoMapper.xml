@@ -37,7 +37,7 @@
             <if test="couponPrice != null "> and coupon_price = #{couponPrice}</if>
             <if test="originalPrice != null "> and original_price = #{originalPrice}</if>
             <if test="discountPrice != null "> and discount_price = #{discountPrice}</if>
-            <if test="tradeState != null "> and trade_state = #{tradeState}</if>
+            <if test="tradeState != null "> and trade_state = 0</if>
             <if test="tradePicture != null  and tradePicture != '' "> and trade_picture = #{tradePicture}</if>
             <if test="couponText != null  and couponText != '' "> and coupon_text = #{couponText}</if>
             <if test="couponUrl != null  and couponUrl != '' "> and coupon_url = #{couponUrl}</if>
@@ -121,5 +121,11 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectWxCouponInfoList" parameterType="Long" resultMap="CouponInfoResult">
+        <include refid="selectCouponInfoVo"/>
+        where trade_state = #{tradeState}
+        order  by  create_date desc
+    </select>
 
 </mapper>

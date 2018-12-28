@@ -33,7 +33,7 @@ public class CouponInfo extends BaseEntity
 	private BigDecimal originalPrice;
 	/** 使用之后的价格 */
 	private BigDecimal discountPrice;
-	/** 商品状态;1正常状态,0下架状态 */
+	/** 商品状态;0正常状态,1下架状态 */
 	private Integer tradeState;
 	/** 商品图片 */
 	private String tradePicture;

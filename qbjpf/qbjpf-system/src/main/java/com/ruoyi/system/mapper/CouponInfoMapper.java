@@ -53,10 +53,11 @@ public interface CouponInfoMapper
 	
 	/**
      * 批量删除优惠劵
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
 	public int deleteCouponInfoByIds(String[] ids);
-	
+
+    List<CouponInfo> selectWxCouponInfoList(Long tradeState);
 }

@@ -50,5 +50,12 @@ public interface ICouponInfoService
      * @return 结果
      */
 	public int deleteCouponInfoByIds(String ids);
-	
+
+	/**
+	 * wx 端显示的优惠券列表 上架
+	 *
+	 * @param tradeState
+	 * @return 结果
+	 */
+    List<CouponInfo> selectWxCouponInfoList(Long tradeState);
 }

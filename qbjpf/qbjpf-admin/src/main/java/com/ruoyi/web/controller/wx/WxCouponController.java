@@ -35,12 +35,12 @@ public class WxCouponController extends BaseController {
     }
     @GetMapping("/list")
     @ResponseBody
-    public List<CouponInfo> lists(CouponInfo couponInfo)
+    public List<CouponInfo> lists()
     {
 	/*	response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
         startPage();
-        List<CouponInfo> list = couponInfoService.selectCouponInfoList(couponInfo);
+        List<CouponInfo> list = couponInfoService.selectWxCouponInfoList((long) 0);
         return list;
     }
     /**

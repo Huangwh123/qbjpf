@@ -79,5 +79,10 @@ public class CouponInfoServiceImpl implements ICouponInfoService
 	{
 		return couponInfoMapper.deleteCouponInfoByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public List<CouponInfo> selectWxCouponInfoList(Long tradeState) {
+		return couponInfoMapper.selectWxCouponInfoList(tradeState);
+	}
+
 }
