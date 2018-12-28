@@ -15,6 +15,7 @@ import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
 import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 import com.ruoyi.common.config.Global;
 import com.ruoyi.common.exception.file.FileNameLengthLimitExceededException;
@@ -45,6 +46,35 @@ public class FileUploadUtils {
      * 默认文件类型jpg
      */
     public static final String IMAGE_JPG_EXTENSION = ".jpg";
+
+    /**
+     * tx appid
+     */
+    public final static  String APPID="1258366811";
+
+    /**
+     * tx SecretId
+     */
+    public final static  String SecretId ="AKIDaO2M1aKbDkJoGZvk0KaUEsPzTOFwwai2";
+
+    /**
+     * tx SecretKey
+     */
+    public final static  String SecretKey  ="VtNm64xhGi2ykOwQsNrNjvy3255xiidS";
+
+    /**
+     * tx CosHost
+     */
+    public final static  String CosHost ="https://qbjpf-1258366811.cos.ap-guangzhou.myqcloud.com";
+
+    /**
+     * tx bucketName
+     */
+    public final static   String bucketName = "qbjpf-1258366811";
+    /**
+     * tx regionName
+     */
+    public final static  String regionName ="ap-guangzhou";
 
     private static int counter = 0;
 
@@ -155,22 +185,21 @@ public class FileUploadUtils {
         String fileName = "";
         String key = "/coupon/"+new Date().getTime() + ".png"  ;
         // 1 初始化用户身份信息(secretId, secretKey)
-        COSCredentials cred = new BasicCOSCredentials("AKIDaO2M1aKbDkJoGZvk0KaUEsPzTOFwwai2", "VtNm64xhGi2ykOwQsNrNjvy3255xiidS");
+        COSCredentials cred = new BasicCOSCredentials(SecretId,SecretKey);
         // 2 设置bucket的区域, COS地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
         // clientConfig中包含了设置region, https(默认http), 超时, 代理等set方法, 使用可参见源码或者接口文档FAQ中说明
-        ClientConfig clientConfig = new ClientConfig(new Region("ap-guangzhou"));
+        ClientConfig clientConfig = new ClientConfig(new Region(regionName));
         // 3 生成cos客户端
         COSClient cosClient = new COSClient(cred, clientConfig);
         try {
 
         // bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
-        String bucketName = "qbjpf-1258366811";
         byte[] bytes = file.getBytes();
         InputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key,byteArrayInputStream, objectMetadata);
         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-        fileName = "https://qbjpf-1258366811.cos.ap-guangzhou.myqcloud.com"+key;
+        fileName = CosHost+key;
         }catch (Exception e ){
         e.printStackTrace();
         }

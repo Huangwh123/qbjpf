@@ -132,9 +132,3 @@ gen:
   autoRemovePre: true
   # 表前缀(类名不会包含表前缀)
   tablePrefix: sys_
-#腾讯cos
-tx:
-  APPID: 1258366811
-  SecretId: AKIDaO2M1aKbDkJoGZvk0KaUEsPzTOFwwai2
-  SecretKey: VtNm64xhGi2ykOwQsNrNjvy3255xiidS
-  CosHost: https://qbjpf-1258366811.cos.ap-guangzhou.myqcloud.com
