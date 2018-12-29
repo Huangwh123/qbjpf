@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ToolsInfoMapper">
+    
+    <resultMap type="ToolsInfo" id="ToolsInfoResult">
+        <result property="id"    column="id"    />
+        <result property="toolSource"    column="tool_source"    />
+        <result property="toolName"    column="tool_name"    />
+        <result property="toolAbbreviation"    column="tool_abbreviation"    />
+        <result property="toolsType"    column="tools_type"    />
+        <result property="deposit"    column="deposit"    />
+        <result property="rentalPrice"    column="rental_price"    />
+        <result property="rentalState"    column="rental_state"    />
+        <result property="periodUnit"    column="period_unit"    />
+        <result property="period"    column="period"    />
+        <result property="tradeState"    column="trade_state"    />
+        <result property="toolPicture"    column="tool_picture"    />
+        <result property="toolText"    column="tool_text"    />
+        <result property="insurancePremium"    column="insurance_premium"    />
+        <result property="insuranceBrief"    column="insurance_brief"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="updateDate"    column="update_date"    />
+    </resultMap>
+	
+	<sql id="selectToolsInfoVo">
+        select id, tool_source, tool_name, tool_abbreviation, tools_type, deposit, rental_price, rental_state, period_unit, period, trade_state, tool_picture, tool_text, insurance_premium, insurance_brief, create_date, update_date from t_tools_info
+    </sql>
+	
+    <select id="selectToolsInfoList" parameterType="ToolsInfo" resultMap="ToolsInfoResult">
+        <include refid="selectToolsInfoVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="toolSource != null "> and tool_source = #{toolSource}</if>
+             <if test="toolName != null  and toolName != '' "> and tool_name = #{toolName}</if>
+             <if test="toolAbbreviation != null  and toolAbbreviation != '' "> and tool_abbreviation = #{toolAbbreviation}</if>
+             <if test="toolsType != null "> and tools_type = #{toolsType}</if>
+             <if test="deposit != null "> and deposit = #{deposit}</if>
+             <if test="rentalPrice != null "> and rental_price = #{rentalPrice}</if>
+             <if test="rentalState != null "> and rental_state = #{rentalState}</if>
+             <if test="periodUnit != null "> and period_unit = #{periodUnit}</if>
+             <if test="period != null "> and period = #{period}</if>
+             <if test="tradeState != null "> and trade_state = #{tradeState}</if>
+             <if test="toolPicture != null  and toolPicture != '' "> and tool_picture = #{toolPicture}</if>
+             <if test="toolText != null  and toolText != '' "> and tool_text = #{toolText}</if>
+             <if test="insurancePremium != null "> and insurance_premium = #{insurancePremium}</if>
+             <if test="insuranceBrief != null  and insuranceBrief != '' "> and insurance_brief = #{insuranceBrief}</if>
+             <if test="createDate != null "> and create_date = #{createDate}</if>
+             <if test="updateDate != null "> and update_date = #{updateDate}</if>
+         </where>
+    </select>
+    
+    <select id="selectToolsInfoById" parameterType="Long" resultMap="ToolsInfoResult">
+        <include refid="selectToolsInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertToolsInfo" parameterType="ToolsInfo">
+        insert into t_tools_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="toolSource != null  ">tool_source,</if>
+			<if test="toolName != null  and toolName != ''  ">tool_name,</if>
+			<if test="toolAbbreviation != null  and toolAbbreviation != ''  ">tool_abbreviation,</if>
+			<if test="toolsType != null  ">tools_type,</if>
+			<if test="deposit != null  ">deposit,</if>
+			<if test="rentalPrice != null  ">rental_price,</if>
+			<if test="rentalState != null  ">rental_state,</if>
+			<if test="periodUnit != null  ">period_unit,</if>
+			<if test="period != null  ">period,</if>
+			<if test="tradeState != null  ">trade_state,</if>
+			<if test="toolPicture != null  and toolPicture != ''  ">tool_picture,</if>
+			<if test="toolText != null  and toolText != ''  ">tool_text,</if>
+			<if test="insurancePremium != null  ">insurance_premium,</if>
+			<if test="insuranceBrief != null  and insuranceBrief != ''  ">insurance_brief,</if>
+			<if test="createDate != null  ">create_date,</if>
+			<if test="updateDate != null  ">update_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="toolSource != null  ">#{toolSource},</if>
+			<if test="toolName != null  and toolName != ''  ">#{toolName},</if>
+			<if test="toolAbbreviation != null  and toolAbbreviation != ''  ">#{toolAbbreviation},</if>
+			<if test="toolsType != null  ">#{toolsType},</if>
+			<if test="deposit != null  ">#{deposit},</if>
+			<if test="rentalPrice != null  ">#{rentalPrice},</if>
+			<if test="rentalState != null  ">#{rentalState},</if>
+			<if test="periodUnit != null  ">#{periodUnit},</if>
+			<if test="period != null  ">#{period},</if>
+			<if test="tradeState != null  ">#{tradeState},</if>
+			<if test="toolPicture != null  and toolPicture != ''  ">#{toolPicture},</if>
+			<if test="toolText != null  and toolText != ''  ">#{toolText},</if>
+			<if test="insurancePremium != null  ">#{insurancePremium},</if>
+			<if test="insuranceBrief != null  and insuranceBrief != ''  ">#{insuranceBrief},</if>
+			<if test="createDate != null  ">#{createDate},</if>
+			<if test="updateDate != null  ">#{updateDate},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateToolsInfo" parameterType="ToolsInfo">
+        update t_tools_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="toolSource != null  ">tool_source = #{toolSource},</if>
+            <if test="toolName != null  and toolName != ''  ">tool_name = #{toolName},</if>
+            <if test="toolAbbreviation != null  and toolAbbreviation != ''  ">tool_abbreviation = #{toolAbbreviation},</if>
+            <if test="toolsType != null  ">tools_type = #{toolsType},</if>
+            <if test="deposit != null  ">deposit = #{deposit},</if>
+            <if test="rentalPrice != null  ">rental_price = #{rentalPrice},</if>
+            <if test="rentalState != null  ">rental_state = #{rentalState},</if>
+            <if test="periodUnit != null  ">period_unit = #{periodUnit},</if>
+            <if test="period != null  ">period = #{period},</if>
+            <if test="tradeState != null  ">trade_state = #{tradeState},</if>
+            <if test="toolPicture != null  and toolPicture != ''  ">tool_picture = #{toolPicture},</if>
+            <if test="toolText != null  and toolText != ''  ">tool_text = #{toolText},</if>
+            <if test="insurancePremium != null  ">insurance_premium = #{insurancePremium},</if>
+            <if test="insuranceBrief != null  and insuranceBrief != ''  ">insurance_brief = #{insuranceBrief},</if>
+            <if test="createDate != null  ">create_date = #{createDate},</if>
+            <if test="updateDate != null  ">update_date = #{updateDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteToolsInfoById" parameterType="Long">
+        delete from t_tools_info where id = #{id}
+    </delete>
+	
+    <delete id="deleteToolsInfoByIds" parameterType="String">
+        delete from t_tools_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

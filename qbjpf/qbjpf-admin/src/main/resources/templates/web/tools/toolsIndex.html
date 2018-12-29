@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>鹏飞共享工具</title>
+		<link rel="stylesheet" type="text/css" href="./css/hui.css" />
+		<link rel="stylesheet" type="text/css" href="./tubiao/iconfont.css" />
+		<style type="text/css">
+			/* 自定义样式  */
+			
+			.hui-hot-sreach {
+				background: #FFFFFF;
+				padding: 12px;
+			}
+			
+			.hui-hot-sreach-title {
+				line-height: 38px;
+				font-size: 15px;
+				font-weight: 700;
+			}
+			
+			.hui-hot-sreach-keys {
+				margin-top: 8px;
+			}
+			
+			.hui-hot-sreach-keys a {
+				display: block;
+				border-radius: 5px;
+				float: left;
+				margin: 0 8px 10px 0px;
+				padding: 6px 10px;
+				line-height: 20px;
+				font-size: 13px;
+				background: #EFF3F6;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="hui-header" style="background-color: #000000">
+			<div id="hui-header-sreach">
+				<div id="hui-header-sreach-icon"></div>
+				<form action=""><input type="search" id="searchKey" onkeydown="if(event.keyCode==13)return false;" placeholder="请输入商品关键字" /></form>
+			</div>
+			<div class="hui-header-sreach-txt" onclick="clearSearch();">清空</div>
+		</header>
+		<div class="hui-wrap">
+			<div class="hui-img-list duiqi">
+				<ul>
+					<li>
+						<a href="itemDetails.html">
+							<img src="./img/wujin/one.jpg" />
+							<div class="hui-img-list-content">
+								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
+								<p style="padding-left: 15px;">随便</p>
+								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:hui.toast('hi...');">
+							<img src="./img/wujin/three.jpg" />
+							<div class="hui-img-list-content">
+								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
+								<p style="padding-left: 15px;">随便</p>
+								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:hui.toast('hi...');">
+							<img src="./img/wujin/two.jpg" />
+							<div class="hui-img-list-content">
+								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
+								<p style="padding-left: 15px;">随便</p>
+								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="hui-fooer-line"></div>
+		<div id="hui-footer">
+			<a href="untilfabu.html" id="nav-home">
+				<div class="hui-footer-icons"> <i class="icon Hui-iconfont" style="font-size: 20px;">&#xe63c;</i></div>
+				<div class="hui-footer-text">我要出租</div>
+			</a>
+			<a href="#" id="nav-home">
+       			 <div class="hui-footer-icons hui-icons-home"></div>
+       			 <div class="hui-footer-text">首页</div>
+  		    </a>
+			<a href="untilAccount.html" id="nav-my">
+				<div class="hui-footer-icons hui-icons-my"></div>
+				<div class="hui-footer-text">我的</div>
+			</a>
+		</div>
+		
+		<script src="./js/hui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//监听搜索事件
+			document.getElementById('searchKey').addEventListener('keyup', function(e) {
+				//键盘按键搜索才会进入
+				if(e.keyCode == 13) {
+					searchNow();
+				}
+			});
+
+			function hotSearch(k) {
+				hui('#searchKey').val(k);
+				searchNow();
+			}
+			//核心搜索函数
+			function searchNow() {
+				document.activeElement.blur();
+				var kwd = hui('#searchKey').val();
+				kwd = kwd.trim();
+				if(kwd.length < 2) {
+					hui.toast('关键字至少2个字符');
+					hui('.hui-hot-sreach').show();
+					return;
+				}
+				//关闭热搜
+				hui('.hui-hot-sreach').hide();
+				hui.toast('搜索 ' + kwd);
+			}
+			//清空
+			function clearSearch() {
+				hui('#searchKey').val('');
+				hui('.hui-hot-sreach').show();
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-toolsInfo-edit" th:object="${toolsInfo}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具来源:0鹏飞,1其他：</label>
+				<div class="col-sm-8">
+					<input id="toolSource" name="toolSource" th:field="*{toolSource}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具名称：</label>
+				<div class="col-sm-8">
+					<input id="toolName" name="toolName" th:field="*{toolName}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具简称：</label>
+				<div class="col-sm-8">
+					<input id="toolAbbreviation" name="toolAbbreviation" th:field="*{toolAbbreviation}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具种类:0电器类,1珠宝类,2服饰类：</label>
+				<div class="col-sm-8">
+					<input id="toolsType" name="toolsType" th:field="*{toolsType}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">押金元：</label>
+				<div class="col-sm-8">
+					<input id="deposit" name="deposit" th:field="*{deposit}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">租出单价元：</label>
+				<div class="col-sm-8">
+					<input id="rentalPrice" name="rentalPrice" th:field="*{rentalPrice}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">出租状态:0待出租,出租中：</label>
+				<div class="col-sm-8">
+					<input id="rentalState" name="rentalState" th:field="*{rentalState}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">出借期限: 0小时,1天;：</label>
+				<div class="col-sm-8">
+					<input id="periodUnit" name="periodUnit" th:field="*{periodUnit}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">出借期限：</label>
+				<div class="col-sm-8">
+					<input id="period" name="period" th:field="*{period}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具状态;0正常状态,1下架状态：</label>
+				<div class="col-sm-8">
+					<input id="tradeState" name="tradeState" th:field="*{tradeState}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具图片：</label>
+				<div class="col-sm-8">
+					<input id="toolPicture" name="toolPicture" th:field="*{toolPicture}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工具简介：</label>
+				<div class="col-sm-8">
+					<input id="toolText" name="toolText" th:field="*{toolText}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">保险费用单位元：</label>
+				<div class="col-sm-8">
+					<input id="insurancePremium" name="insurancePremium" th:field="*{insurancePremium}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">保险描述：</label>
+				<div class="col-sm-8">
+					<input id="insuranceBrief" name="insuranceBrief" th:field="*{insuranceBrief}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建时间：</label>
+				<div class="col-sm-8">
+					<input id="createDate" name="createDate" th:field="*{createDate}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">更新时间：</label>
+				<div class="col-sm-8">
+					<input id="updateDate" name="updateDate" th:field="*{updateDate}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/toolsInfo"
+		$("#form-toolsInfo-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-toolsInfo-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
