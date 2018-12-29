@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
-
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>鹏飞共享工具</title>
-		<link rel="stylesheet" type="text/css" href="./css/hui.css" />
-		<link rel="stylesheet" type="text/css" href="./tubiao/iconfont.css" />
+		<link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
+		<link rel="stylesheet" th:href="@{/tubiao/iconfont.css}" media="all">
 		<style type="text/css">
 			/* 自定义样式  */
 			
@@ -47,38 +46,10 @@
 			<div class="hui-header-sreach-txt" onclick="clearSearch();">清空</div>
 		</header>
 		<div class="hui-wrap">
-			<div class="hui-img-list duiqi">
-				<ul>
-					<li>
-						<a href="itemDetails.html">
-							<img src="./img/wujin/one.jpg" />
-							<div class="hui-img-list-content">
-								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
-								<p style="padding-left: 15px;">随便</p>
-								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:hui.toast('hi...');">
-							<img src="./img/wujin/three.jpg" />
-							<div class="hui-img-list-content">
-								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
-								<p style="padding-left: 15px;">随便</p>
-								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:hui.toast('hi...');">
-							<img src="./img/wujin/two.jpg" />
-							<div class="hui-img-list-content">
-								<h1>&nbsp;&nbsp;&nbsp;锤子</h1>
-								<p style="padding-left: 15px;">随便</p>
-								<p style="padding-left: 10px;"><span class="hui-badge hui-danger">3000</span>元/小时</p>
-							</div>
-						</a>
-					</li>
+			<div class="hui-img-list duiqi" id="hui-img-list">
+				<div class="hui-refresh-icon"></div>
+				<ul id="list">
+
 				</ul>
 			</div>
 		</div>
@@ -88,7 +59,7 @@
 				<div class="hui-footer-icons"> <i class="icon Hui-iconfont" style="font-size: 20px;">&#xe63c;</i></div>
 				<div class="hui-footer-text">我要出租</div>
 			</a>
-			<a href="#" id="nav-home">
+			<a href="#" id="nav-news">
        			 <div class="hui-footer-icons hui-icons-home"></div>
        			 <div class="hui-footer-text">首页</div>
   		    </a>
@@ -97,8 +68,7 @@
 				<div class="hui-footer-text">我的</div>
 			</a>
 		</div>
-		
-		<script src="./js/hui.js" type="text/javascript" charset="utf-8"></script>
+		<script th:src="@{/js/hui.js}"></script>
 		<script type="text/javascript">
 			//监听搜索事件
 			document.getElementById('searchKey').addEventListener('keyup', function(e) {
@@ -107,7 +77,6 @@
 					searchNow();
 				}
 			});
-
 			function hotSearch(k) {
 				hui('#searchKey').val(k);
 				searchNow();
@@ -130,6 +99,79 @@
 			function clearSearch() {
 				hui('#searchKey').val('');
 				hui('.hui-hot-sreach').show();
+			}
+		</script>
+		<script th:src="@{/js/hui-refresh-load-more.js}"></script>
+		<script type="text/javascript">
+			var page = 1;
+			var pageSize = 10;
+			hui.refresh('#hui-img-list', refresh);
+			hui.loadMore(getMore);
+			//加载更多
+			function getMore(){
+				hui.getJSON(
+						'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
+						function(res){
+							//判断加载完毕
+							if(res == 'null'||res==''){
+								hui.endLoadMore(true, '已经到头了...');
+								return false;
+							}
+							var data = res;
+							for(var i = 0; i < data.length; i++){
+								var li = document.createElement('li');
+
+								li.innerHTML = '<a href="itemDetails.html"><img src="'+data[i].toolPicture+
+										'" /><div class="hui-img-list-content"><h1>'+data[i].toolName+
+										'</h1><p style="padding-left: 15px;">'+data[i].deposit+
+										'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
+										'</span>'+time+'/小时</p></div></a>';
+
+
+								hui(li).appendTo('#list');
+							}
+							page++;
+							hui.endLoadMore();
+						}
+				);
+			}
+			//下拉刷新
+			function refresh(){
+				hui.loading('加载中...');
+				hui.getJSON(
+						'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
+						function(res){
+							hui.closeLoading();
+							var data = res;
+							var html = '';
+							for(var i = 0; i < data.length; i++){
+								var  time = '';
+								if (data[i].periodUnit==0){
+									 time = '小时';
+								}
+								else{
+									time='天';
+								}
+								html += '<li> <a href="itemDetails.html"><img src="'+data[i].toolPicture+
+										'" /><div class="hui-img-list-content"><h1>'+data[i].toolName+
+										'</h1><p style="padding-left: 15px;">'+data[i].deposit+
+										'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
+										'</span>'+time+'/小时</p></div></a></li>'
+										;
+							}
+							page = 2;
+							hui('#list').html(html);
+							//结束刷新
+							hui.endRefresh();
+							//重置加载更多状态
+							hui.resetLoadMore();
+						},
+						function(){
+							hui.closeLoading();
+							hui.upToast('连接服务器失败！');
+							hui.endRefresh();
+						}
+				);
 			}
 		</script>
 	</body>

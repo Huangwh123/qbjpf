@@ -3,6 +3,8 @@ package com.ruoyi.system.domain;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**

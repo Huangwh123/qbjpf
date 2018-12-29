@@ -239,6 +239,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/favicon.ico**", "anon");
         filterChainDefinitionMap.put("/ruoyi.png**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/tubiao/**", "anon");
         filterChainDefinitionMap.put("/docs/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
@@ -255,6 +256,8 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/wx/couponInfoIndex", "anon,captchaValidate");
         filterChainDefinitionMap.put("/wx/detailsCoupon/*", "anon,captchaValidate");
         filterChainDefinitionMap.put("/wx/list", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/toolsIndex", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/toolList", "anon,captchaValidate");
 
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());

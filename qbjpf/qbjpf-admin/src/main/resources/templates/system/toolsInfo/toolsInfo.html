@@ -11,7 +11,12 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								工具来源:0鹏飞,1其他：<input type="text" name="toolSource"/>
+								工具来源:
+								<select name="toolSource" >
+									<option value="">所有</option>
+									<option value="0" >鹏飞</option>
+									<option value="1" >其他</option>
+								</select>
 							</li>
 
 							<li>
@@ -23,55 +28,45 @@
 							</li>
 
 							<li>
-								工具种类:0电器类,1珠宝类,2服饰类：<input type="text" name="toolsType"/>
+								工具种类:
+								<select name="toolsType" >
+									<option value="">所有</option>
+								</select>
+							</li>
+
+
+
+
+
+							<li>
+								出租状态：
+								<select name="rentalState" >
+									<option value="">所有</option>
+									<option value="0">待出租</option>
+									<option value="1">出租中</option>
+								</select>
 							</li>
 
 							<li>
-								押金元：<input type="text" name="deposit"/>
+								出借期限:
+								<select name="periodUnit" >
+									<option value="">所有</option>
+									<option value="0">小时</option>
+									<option value="1">天</option>
+								</select>
 							</li>
 
 							<li>
-								租出单价元：<input type="text" name="rentalPrice"/>
-							</li>
-
-							<li>
-								出租状态:0待出租,出租中：<input type="text" name="rentalState"/>
-							</li>
-
-							<li>
-								出借期限: 0小时,1天;：<input type="text" name="periodUnit"/>
-							</li>
-
-							<li>
-								出借期限：<input type="text" name="period"/>
-							</li>
-
-							<li>
-								工具状态;0正常状态,1下架状态：<input type="text" name="tradeState"/>
-							</li>
-
-							<li>
-								工具图片：<input type="text" name="toolPicture"/>
-							</li>
-
-							<li>
-								工具简介：<input type="text" name="toolText"/>
+								工具状态:
+								<select name="tradeState" >
+									<option value="">所有</option>
+									<option value="0">正常状态</option>
+									<option value="1">下架状态</option>
+								</select>
 							</li>
 
 							<li>
 								保险费用单位元：<input type="text" name="insurancePremium"/>
-							</li>
-
-							<li>
-								保险描述：<input type="text" name="insuranceBrief"/>
-							</li>
-
-							<li>
-								创建时间：<input type="text" name="createDate"/>
-							</li>
-
-							<li>
-								更新时间：<input type="text" name="updateDate"/>
 							</li>
 
 							<li>
@@ -128,8 +123,18 @@
 				},
 				{
 					field : 'toolSource', 
-					title : '工具来源:0鹏飞,1其他',
-					sortable: true
+					title : '工具来源',
+					sortable: true,
+					formatter: function(value, row, index) {
+						var va = [];
+						if (0==value) {
+						va.push("<span> 鹏飞</span>");
+						}
+						else {
+							va.push("<span> 其他</span>");
+						}
+						return va.join('');
+					}
 				},
 				{
 					field : 'toolName', 
@@ -143,8 +148,20 @@
 				},
 				{
 					field : 'toolsType', 
-					title : '工具种类:0电器类,1珠宝类,2服饰类',
-					sortable: true
+					title : '工具种类',
+					sortable: true,
+			formatter: function(value, row, index) {
+				var va = [];
+				if (0==value) {
+					va.push("<span> 电器类</span>");
+				}
+				else  if (1==value) {
+					va.push("<span> 珠宝类</span>");
+				}else{
+					va.push("<span> 服饰类</span>");
+				}
+				return va.join('');
+			}
 				},
 				{
 					field : 'deposit', 
@@ -158,23 +175,48 @@
 				},
 				{
 					field : 'rentalState', 
-					title : '出租状态:0待出租,出租中',
-					sortable: true
+					title : '出租状态',
+					sortable: true,
+					formatter: function(value, row, index) {
+						var va = [];
+						if (0==value) {
+							va.push("<span> 待出租</span>");
+						}
+						else{
+							va.push("<span> 出租中</span>");
+						}
+						return va.join('');
+					}
 				},
 				{
 					field : 'periodUnit', 
-					title : '出借期限: 0小时,1天;',
-					sortable: true
-				},
-				{
-					field : 'period', 
 					title : '出借期限',
-					sortable: true
+					sortable: true,
+					formatter: function(value, row, index) {
+						var va = [];
+						if (0==value) {
+							va.push("<span> 小时</span>");
+						}
+						else{
+							va.push("<span> 天</span>");
+						}
+						return va.join('');
+					}
 				},
 				{
 					field : 'tradeState', 
-					title : '工具状态;0正常状态,1下架状态',
-					sortable: true
+					title : '工具状态',
+					sortable: true,
+					formatter: function(value, row, index) {
+						var va = [];
+						if (0==value) {
+							va.push("<span> 正常状态</span>");
+						}
+						else{
+							va.push("<span> 下架状态</span>");
+						}
+						return va.join('');
+					}
 				},
 				{
 					field : 'toolPicture', 
