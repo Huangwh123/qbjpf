@@ -74,6 +74,7 @@ hui.loadMore = function(func, title, loading){
 		},200);
 	});
 }
+
 hui.endLoadMore = function(isEnd, endMsg){
 	if(!endMsg){endMsg = '已经加载全部';}
 	var dom = hui('#hui-load-more');

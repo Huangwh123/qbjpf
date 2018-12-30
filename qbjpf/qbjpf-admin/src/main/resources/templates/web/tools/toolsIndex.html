@@ -38,14 +38,14 @@
 	</head>
 
 	<body>
-		<header class="hui-header" style="background-color: #000000">
+		<header class="hui-header" style="background-color: #2A2E36">
 			<div id="hui-header-sreach">
 				<div id="hui-header-sreach-icon"></div>
-				<form action=""><input type="search" id="searchKey" onkeydown="if(event.keyCode==13)return false;" placeholder="请输入商品关键字" /></form>
+				<form action=""><input type="search" id="searchKey" onkeydown="if(event.keyCode==13)return false;" placeholder="请输入商品关键字(例如:锤子)" /></form>
 			</div>
-			<div class="hui-header-sreach-txt" onclick="clearSearch();">清空</div>
+			<div class="hui-header-sreach-txt" onclick="clearSearch();" style="font-size: 13px ;">清空</div>
 		</header>
-		<div class="hui-wrap">
+		<div class="hui-wrap" id="toolsId">
 			<div class="hui-img-list duiqi" id="hui-img-list">
 				<div class="hui-refresh-icon"></div>
 				<ul id="list">
@@ -55,125 +55,135 @@
 		</div>
 		<div class="hui-fooer-line"></div>
 		<div id="hui-footer">
-			<a href="untilfabu.html" id="nav-home">
+			<!--<a href="untilfabu.html" id="nav-new">
 				<div class="hui-footer-icons"> <i class="icon Hui-iconfont" style="font-size: 20px;">&#xe63c;</i></div>
 				<div class="hui-footer-text">我要出租</div>
+			</a>-->
+			<a href="#" id="nav-home">
+				<div class="hui-footer-icons hui-icons-home"></div>
+				<div class="hui-footer-text">首页</div>
 			</a>
-			<a href="#" id="nav-news">
-       			 <div class="hui-footer-icons hui-icons-home"></div>
-       			 <div class="hui-footer-text">首页</div>
-  		    </a>
-			<a href="untilAccount.html" id="nav-my">
+			<a href="javascript:hui.toast('该功能未开放，如要租工具请前往鹏飞五金店');" id="nav-my">
 				<div class="hui-footer-icons hui-icons-my"></div>
 				<div class="hui-footer-text">我的</div>
 			</a>
 		</div>
-		<script th:src="@{/js/hui.js}"></script>
-		<script type="text/javascript">
-			//监听搜索事件
-			document.getElementById('searchKey').addEventListener('keyup', function(e) {
-				//键盘按键搜索才会进入
-				if(e.keyCode == 13) {
-					searchNow();
-				}
-			});
-			function hotSearch(k) {
-				hui('#searchKey').val(k);
+
+	</body>
+
+	<script th:src="@{/js/hui.js}"></script>
+	<script type="text/javascript">
+		//监听搜索事件
+		document.getElementById('searchKey').addEventListener('keyup', function(e) {
+			//键盘按键搜索才会进入
+			if(e.keyCode == 13) {
 				searchNow();
 			}
-			//核心搜索函数
-			function searchNow() {
-				document.activeElement.blur();
-				var kwd = hui('#searchKey').val();
-				kwd = kwd.trim();
-				if(kwd.length < 2) {
-					hui.toast('关键字至少2个字符');
-					hui('.hui-hot-sreach').show();
-					return;
-				}
-				//关闭热搜
-				hui('.hui-hot-sreach').hide();
-				hui.toast('搜索 ' + kwd);
-			}
-			//清空
-			function clearSearch() {
-				hui('#searchKey').val('');
+		});
+		function hotSearch(k) {
+			hui('#searchKey').val(k);
+			searchNow();
+		}
+		//核心搜索函数
+		function searchNow() {
+			document.activeElement.blur();
+			var kwd = hui('#searchKey').val();
+			kwd = kwd.trim();
+			if(kwd.length < 2) {
+				hui.toast('关键字至少2个字符');
 				hui('.hui-hot-sreach').show();
+				return;
 			}
-		</script>
-		<script th:src="@{/js/hui-refresh-load-more.js}"></script>
-		<script type="text/javascript">
-			var page = 1;
-			var pageSize = 10;
-			hui.refresh('#hui-img-list', refresh);
-			hui.loadMore(getMore);
-			//加载更多
-			function getMore(){
-				hui.getJSON(
-						'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
-						function(res){
-							//判断加载完毕
-							if(res == 'null'||res==''){
-								hui.endLoadMore(true, '已经到头了...');
-								return false;
-							}
-							var data = res;
-							for(var i = 0; i < data.length; i++){
-								var li = document.createElement('li');
-
-								li.innerHTML = '<a href="itemDetails.html"><img src="'+data[i].toolPicture+
-										'" /><div class="hui-img-list-content"><h1>'+data[i].toolName+
-										'</h1><p style="padding-left: 15px;">'+data[i].deposit+
-										'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
-										'</span>'+time+'/小时</p></div></a>';
-
-
-								hui(li).appendTo('#list');
-							}
-							page++;
-							hui.endLoadMore();
+			//关闭热搜
+			/*hui('.hui-hot-sreach').hide();
+			hui.toast('搜索 ' + kwd);*/
+		}
+		//清空
+		function clearSearch() {
+			hui('#searchKey').val('');
+			hui('.hui-hot-sreach').show();
+		}
+	</script>
+	<script th:src="@{/js/hui-refresh-load-more.js}"></script>
+	<script type="text/javascript">
+		var  time = '';
+		var page = 1;
+		var pageSize = 10;
+		hui.refresh('#hui-img-list', refresh);
+		hui.loadMore(getMore);
+		var  jdom =document.getElementById('hui-load-more');
+		document.getElementById('toolsId').appendChild(jdom);
+		//加载更多
+		function getMore(){
+			hui.getJSON(
+					'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
+					function(res){
+						//判断加载完毕
+						if(res == 'null'||res==''){
+							hui.endLoadMore(true, '已经到头了...');
+							return false;
 						}
-				);
-			}
-			//下拉刷新
-			function refresh(){
-				hui.loading('加载中...');
-				hui.getJSON(
-						'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
-						function(res){
-							hui.closeLoading();
-							var data = res;
-							var html = '';
-							for(var i = 0; i < data.length; i++){
-								var  time = '';
-								if (data[i].periodUnit==0){
-									 time = '小时';
-								}
-								else{
-									time='天';
-								}
-								html += '<li> <a href="itemDetails.html"><img src="'+data[i].toolPicture+
-										'" /><div class="hui-img-list-content"><h1>'+data[i].toolName+
-										'</h1><p style="padding-left: 15px;">'+data[i].deposit+
-										'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
-										'</span>'+time+'/小时</p></div></a></li>'
-										;
+						var data = res;
+						for(var i = 0; i < data.length; i++){
+							if (data[i].periodUnit==0){
+								time = '小时';
 							}
-							page = 2;
-							hui('#list').html(html);
-							//结束刷新
-							hui.endRefresh();
-							//重置加载更多状态
-							hui.resetLoadMore();
-						},
-						function(){
-							hui.closeLoading();
-							hui.upToast('连接服务器失败！');
-							hui.endRefresh();
+							else{
+								time='天';
+							}
+							var li = document.createElement('li');
+
+							li.innerHTML = '<a href="javascript:hui.toast(\'该功能未开放，如要租工具请前往鹏飞五金店\');"><img src="'+data[i].toolPicture+
+									'" style="border-radius:10px"/><div class="hui-img-list-content"><h1>'+data[i].toolName+
+									'</h1><p style="padding-left: 15px;">'+data[i].deposit+
+									'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
+									'</span>元/'+time+'</p></div></a>';
+
+
+							hui(li).appendTo('#list');
 						}
-				);
-			}
-		</script>
-	</body>
+						page++;
+						hui.endLoadMore();
+					}
+			);
+		}
+		//下拉刷新
+		function refresh(){
+			hui.loading('加载中...');
+			hui.getJSON(
+					'/wx/toolList?pageNum=1&pageSize='+pageSize,
+					function(res){
+						hui.closeLoading();
+						var data = res;
+						var html = '';
+						for(var i = 0; i < data.length; i++){
+							if (data[i].periodUnit==0){
+								time = '小时';
+							}
+							else{
+								time='天';
+							}
+							html += '<li> <a href="javascript:hui.toast(\'该功能未开放，如要租工具请前往鹏飞五金店\');"><img src="'+data[i].toolPicture+
+									'" style="border-radius:10px" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
+									'</h1><p style="padding-left: 15px;">押金:'+data[i].deposit+
+									'元</p><p style="padding-left: 15px;">租金:<span class="hui-badge hui-danger">'+data[i].rentalPrice+
+									'</span>元/'+time+'</p></div></a></li>'
+							;
+						}
+						page = 2;
+						hui('#list').html(html);
+						//结束刷新
+						hui.endRefresh();
+						//重置加载更多状态
+						hui.resetLoadMore();
+					},
+					function(){
+						hui.closeLoading();
+						hui.upToast('连接服务器失败！');
+						hui.endRefresh();
+					}
+			);
+		}
+	</script>
 
 </html>
