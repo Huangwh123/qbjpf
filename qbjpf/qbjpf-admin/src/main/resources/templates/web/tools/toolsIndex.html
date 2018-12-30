@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>鹏飞共享工具</title>
+		<script th:src="@{/js/jquery.min.js}"></script>
 		<link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
 		<link rel="stylesheet" th:href="@{/tubiao/iconfont.css}" media="all">
 		<style type="text/css">
@@ -41,7 +42,7 @@
 		<header class="hui-header" style="background-color: #2A2E36">
 			<div id="hui-header-sreach">
 				<div id="hui-header-sreach-icon"></div>
-				<form action=""><input type="search" id="searchKey" onkeydown="if(event.keyCode==13)return false;" placeholder="请输入商品关键字(例如:锤子)" /></form>
+				<form action=""><input type="search" id="searchKey" onkeydown="if(event.keyCode==13)return false;" placeholder="请输入商品关键字" /></form>
 			</div>
 			<div class="hui-header-sreach-txt" onclick="clearSearch();" style="font-size: 13px ;">清空</div>
 		</header>
@@ -80,10 +81,10 @@
 				searchNow();
 			}
 		});
-		function hotSearch(k) {
+		/*function hotSearch(k) {
 			hui('#searchKey').val(k);
 			searchNow();
-		}
+		}*/
 		//核心搜索函数
 		function searchNow() {
 			document.activeElement.blur();
@@ -94,9 +95,10 @@
 				hui('.hui-hot-sreach').show();
 				return;
 			}
+			getMore(kwd,true);
 			//关闭热搜
 			/*hui('.hui-hot-sreach').hide();
-			hui.toast('搜索 ' + kwd);*/
+			;*/
 		}
 		//清空
 		function clearSearch() {
@@ -114,14 +116,34 @@
 		var  jdom =document.getElementById('hui-load-more');
 		document.getElementById('toolsId').appendChild(jdom);
 		//加载更多
-		function getMore(){
+		function getMore(toolName,searchflag){
+			var toolName = hui('#searchKey').val();
+			if (toolName!=null&&toolName!=''&&searchflag){
+				page=1;
+				var dom = hui('#hui-load-more');
+				dom.html("加载中");
+				hui.loadMoreEnd = false;
+			}
 			hui.getJSON(
-					'/wx/toolList?pageNum='+page+'&pageSize='+pageSize,
+					'/wx/toolList?pageNum='+page+'&pageSize='+pageSize+'&toolName='+toolName,
 					function(res){
 						//判断加载完毕
+						if((res == 'null'||res=='')&&searchflag){
+							hui.toast('搜素不到该商品');
+							var dom = hui('#hui-load-more');
+							dom.html("上拉加载更多");
+							return false;
+						}
 						if(res == 'null'||res==''){
 							hui.endLoadMore(true, '已经到头了...');
 							return false;
+						}
+						if (res.length<10){
+							var dom = hui('#hui-load-more');
+							dom.html("上拉加载更多");
+						}
+						if (searchflag) {
+							$("#list").empty();
 						}
 						var data = res;
 						for(var i = 0; i < data.length; i++){
@@ -134,10 +156,11 @@
 							var li = document.createElement('li');
 
 							li.innerHTML = '<a href="javascript:hui.toast(\'该功能未开放，如要租工具请前往鹏飞五金店\');"><img src="'+data[i].toolPicture+
-									'" style="border-radius:10px"/><div class="hui-img-list-content"><h1>'+data[i].toolName+
+									'" style="border-radius:10px"/><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">'+data[i].deposit+
 									'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
 									'</span>元/'+time+'</p></div></a>';
+
 
 
 							hui(li).appendTo('#list');
@@ -149,11 +172,16 @@
 		}
 		//下拉刷新
 		function refresh(){
+			var toolName = hui('#searchKey').val();
 			hui.loading('加载中...');
 			hui.getJSON(
-					'/wx/toolList?pageNum=1&pageSize='+pageSize,
+					'/wx/toolList?pageNum='+1+'&pageSize='+pageSize+'&toolName='+toolName,
 					function(res){
 						hui.closeLoading();
+						if(res == 'null'||res==''){
+							hui.toast('搜素不到该商品');
+							return false;
+						}
 						var data = res;
 						var html = '';
 						for(var i = 0; i < data.length; i++){

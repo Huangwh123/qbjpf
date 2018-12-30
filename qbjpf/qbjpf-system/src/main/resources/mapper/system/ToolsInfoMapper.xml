@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="id != null "> and id = #{id}</if>
              <if test="toolSource != null "> and tool_source = #{toolSource}</if>
-             <if test="toolName != null  and toolName != '' "> and tool_name = #{toolName}</if>
+             <if test="toolName != null  and toolName != '' "> and tool_name like "%"#{toolName}"%"</if>
              <if test="toolAbbreviation != null  and toolAbbreviation != '' "> and tool_abbreviation = #{toolAbbreviation}</if>
              <if test="toolsType != null "> and tools_type = #{toolsType}</if>
              <if test="deposit != null "> and deposit = #{deposit}</if>
