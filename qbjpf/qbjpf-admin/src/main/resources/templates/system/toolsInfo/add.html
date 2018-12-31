@@ -142,7 +142,7 @@
 					var idIndex = Date.parse(new Date());
 					var img_id = data.fileName.substr(37,data.fileName.length - 5);
 					$("#image_file_msg").append("<img src="+data.fileName+"  id='img_id_"+idIndex+"' onclick= changeSize('img_id_"+idIndex+"') width='110px' height='110px' style='border:solid 5px white;'/><img id='del_img_id_"+idIndex+"' src='/img/del.png' style='margin-left: -25px;cursor: pointer;' alt='删除' onclick= \"delete_bid_msg('"+data.fileName+"','img_id_"+idIndex+"','del_img_id_"+idIndex+"')\"/>&nbsp;&nbsp;");
-					document.getElementById("toolPicture").value +=data.fileName+",";
+					document.getElementById("toolPicture").value +=data.fileName;
 					idIndex++;
 					} else{
 						alert(data.msg);
@@ -169,14 +169,14 @@
 			}
 
 		}
-		function delete_bid_msg(bidImgStr,img_id,del_img_id){
-			/*删除图片*/
+	/*	function delete_bid_msg(bidImgStr,img_id,del_img_id){
+			/!*删除图片*!/
 			$("#"+img_id).remove();
 			$("#"+del_img_id).remove();//删除按钮图片也删除
-			/*给文本框重新赋值*/
+			/!*给文本框重新赋值*!/
 			document.getElementById("toolPicture").value = document.getElementById("toolPicture").value.toString().replace(bidImgStr+",","");
 			alert("删除成功!");
-		}
+		}*/
 	</script>
 </body>
 </html>

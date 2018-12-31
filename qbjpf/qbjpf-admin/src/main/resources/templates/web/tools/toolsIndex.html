@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<title>鹏飞共享工具</title>
+		<title>共享工具</title>
 		<script th:src="@{/js/jquery.min.js}"></script>
 		<link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
 		<link rel="stylesheet" th:href="@{/tubiao/iconfont.css}" media="all">
@@ -64,7 +64,7 @@
 				<div class="hui-footer-icons hui-icons-home"></div>
 				<div class="hui-footer-text">首页</div>
 			</a>
-			<a href="javascript:hui.toast('该功能未开放，如要租工具请前往鹏飞五金店');" id="nav-my">
+			<a href="javascript:hui.toast('工享工具暂时只对部分客户开放');" id="nav-my">
 				<div class="hui-footer-icons hui-icons-my"></div>
 				<div class="hui-footer-text">我的</div>
 			</a>
@@ -155,7 +155,7 @@
 							}
 							var li = document.createElement('li');
 
-							li.innerHTML = '<a href="javascript:hui.toast(\'该功能未开放，如要租工具请前往鹏飞五金店\');"><img src="'+data[i].toolPicture+
+							li.innerHTML = '<a href="javascript:hui.toast(\'工享工具暂时只对部分客户开放\');"><img src="'+data[i].toolPicture+
 									'" style="border-radius:10px"/><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">'+data[i].deposit+
 									'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
@@ -191,7 +191,7 @@
 							else{
 								time='天';
 							}
-							html += '<li> <a href="javascript:hui.toast(\'该功能未开放，如要租工具请前往鹏飞五金店\');"><img src="'+data[i].toolPicture+
+							html += '<li> <a href="javascript:hui.toast(\'工享工具暂时只对部分客户开放\');"><img src="'+data[i].toolPicture+
 									'" style="border-radius:10px" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">押金:'+data[i].deposit+
 									'元</p><p style="padding-left: 15px;">租金:<span class="hui-badge hui-danger">'+data[i].rentalPrice+
