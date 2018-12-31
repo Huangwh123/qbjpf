@@ -74,13 +74,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">工具图片：</label>
-				<div class="col-sm-8">
-					<input id="toolPicture" name="toolPicture" th:field="*{toolPicture}" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
+			<div class="form-group">
 				<label class="col-sm-3 control-label">工具简介：</label>
 				<div class="col-sm-8">
 					<input id="toolText" name="toolText" th:field="*{toolText}" class="form-control" type="text">
@@ -98,9 +92,21 @@
 					<input id="insuranceBrief" name="insuranceBrief" th:field="*{insuranceBrief}" class="form-control" type="text">
 				</div>
 			</div>
+
+			<input type="hidden" name="toolPicture" id="toolPicture"/>
+			<label class="col-sm-3 control-label">工具图片：</label>
+
+			<input type="file"  name="file" id="file"/>
+			<input type="button" value="上传" onclick="upload_bid_img();"/>
+			<br><br>
+
+			<div id="image_file_msg" style="width:1000px;margin-left:150px;">
+			</div>
 		</form>
     </div>
     <div th:include="include::footer"></div>
+	<script th:src="@{/js/jquery.json-2.4.min.js}"></script>
+	<script th:src="@{/js/ajaxfileupload.js}"></script>
     <script type="text/javascript">
 		var prefix = ctx + "system/toolsInfo"
 		$("#form-toolsInfo-edit").validate({
@@ -116,6 +122,57 @@
 	            $.operate.save(prefix + "/edit", $('#form-toolsInfo-edit').serialize());
 	        }
 	    }
+	</script>
+	<script type="text/javascript">
+		function upload_bid_img() {
+			var type=1;//1代表是上传图片
+			$.ajaxFileUpload({
+				url : '/wx/uploaToolFile',
+				secureuri : false,
+				fileElementId : 'file',
+				dataType : 'text',
+				data:{type:type},
+				success : function(data) {
+					data = $.evalJSON(data);
+					if (data.code==0) {
+						var idIndex = Date.parse(new Date());
+						var img_id = data.fileName.substr(37, data.fileName.length - 5);
+						$("#image_file_msg").append("<img src=" + data.fileName + "  id='img_id_" + idIndex + "' onclick= changeSize('img_id_" + idIndex + "') width='110px' height='110px' style='border:solid 5px white;'/><img id='del_img_id_" + idIndex + "' src='/img/del.png' style='margin-left: -25px;cursor: pointer;' alt='删除' onclick= \"delete_bid_msg('" + data.fileName + "','img_id_" + idIndex + "','del_img_id_" + idIndex + "')\"/>&nbsp;&nbsp;");
+						document.getElementById("toolPicture").value += data.fileName + ",";
+						idIndex++;
+					}
+					else
+					{ alert(data.msg)}
+				},
+				error : function(data, status, e) {
+					alert("上传图片失败");
+				}
+			})
+		}
+
+		function changeSize(id) {
+
+			var img = $("#" + id);
+			var oWidth = img.width(); //取得图片的实际宽度
+			var oHeight = img.height(); //取得图片的实际高度
+
+			if (oWidth == 110) {
+				img.width(500);
+				img.height(500);
+			} else {
+				img.width(110);
+				img.height(110);
+			}
+
+		}
+		function delete_bid_msg(bidImgStr,img_id,del_img_id){
+			/*删除图片*/
+			$("#"+img_id).remove();
+			$("#"+del_img_id).remove();//删除按钮图片也删除
+			/*给文本框重新赋值*/
+			document.getElementById("toolPicture").value = document.getElementById("toolPicture").value.toString().replace(bidImgStr+",","");
+			alert("删除成功!");
+		}
 	</script>
 </body>
 </html>
