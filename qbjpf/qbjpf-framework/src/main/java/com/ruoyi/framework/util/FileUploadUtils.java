@@ -14,6 +14,7 @@ import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import com.ruoyi.common.base.AjaxResult;
 import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,35 +47,6 @@ public class FileUploadUtils {
      * 默认文件类型jpg
      */
     public static final String IMAGE_JPG_EXTENSION = ".jpg";
-
-    /**
-     * tx appid
-     */
-    public final static  String APPID="1258366811";
-
-    /**
-     * tx SecretId
-     */
-    public final static  String SecretId ="AKIDaO2M1aKbDkJoGZvk0KaUEsPzTOFwwai2";
-
-    /**
-     * tx SecretKey
-     */
-    public final static  String SecretKey  ="VtNm64xhGi2ykOwQsNrNjvy3255xiidS";
-
-    /**
-     * tx CosHost
-     */
-    public final static  String CosHost ="https://qbjpf-1258366811.cos.ap-guangzhou.myqcloud.com";
-
-    /**
-     * tx bucketName
-     */
-    public final static   String bucketName = "qbjpf-1258366811";
-    /**
-     * tx regionName
-     */
-    public final static  String regionName ="ap-guangzhou";
 
     private static int counter = 0;
 
@@ -122,7 +94,6 @@ public class FileUploadUtils {
      *
      * @param baseDir                   相对应用的基目录
      * @param file                      上传的文件
-     * @param needDatePathAndRandomName 是否需要日期目录和随机文件名前缀
      * @param extension                 上传文件类型
      * @return 返回上传成功的文件名
      * @throws FileSizeLimitExceededException       如果超出最大大小
@@ -184,27 +155,36 @@ public class FileUploadUtils {
     public static final String uploadImgCos(MultipartFile file) {
         String fileName = "";
         String key = "/coupon/"+new Date().getTime() + ".png"  ;
-        // 1 初始化用户身份信息(secretId, secretKey)
-        COSCredentials cred = new BasicCOSCredentials(SecretId,SecretKey);
-        // 2 设置bucket的区域, COS地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
-        // clientConfig中包含了设置region, https(默认http), 超时, 代理等set方法, 使用可参见源码或者接口文档FAQ中说明
-        ClientConfig clientConfig = new ClientConfig(new Region(regionName));
-        // 3 生成cos客户端
-        COSClient cosClient = new COSClient(cred, clientConfig);
+        COSClient  cosClient = TencentCosUntils.getCosConnect();
         try {
-
-        // bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
-        byte[] bytes = file.getBytes();
-        InputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key,byteArrayInputStream, objectMetadata);
-        PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-        fileName = CosHost+key;
-        }catch (Exception e ){
-        e.printStackTrace();
+            byte[] bytes = file.getBytes();
+            InputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            PutObjectRequest putObjectRequest = new PutObjectRequest(TencentCosUntils.bucketName, key,byteArrayInputStream, objectMetadata);
+            PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
+            fileName = TencentCosUntils.CosHost+key;
+            }catch (Exception e ){
+                e.printStackTrace();
         }
             // 关闭客户端(关闭后台线程)
-            cosClient.shutdown();
+             cosClient.shutdown();
             return fileName;
+    }
+    public static final AjaxResult deleteImgCos(String key) {
+        AjaxResult ajaxResult = new AjaxResult();
+        COSClient cosClient = TencentCosUntils.getCosConnect();
+        try {
+        // 指定文件在 COS 上的对象键
+            cosClient.deleteObject(TencentCosUntils.bucketName, key);
+            ajaxResult.put("code" ,0);
+            ajaxResult.put("msg","成功");
+        }catch (Exception e ){
+            e.printStackTrace();
+            ajaxResult.put("code" ,-1);
+            ajaxResult.put("msg","删除失败");
+        }
+        // 关闭客户端(关闭后台线程)
+        cosClient.shutdown();
+        return  ajaxResult;
     }
 }

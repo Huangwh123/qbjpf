@@ -160,23 +160,35 @@
 			var oWidth = img.width(); //取得图片的实际宽度
 			var oHeight = img.height(); //取得图片的实际高度
 
-			if (oWidth == 110) {
+			if (oWidth == 100) {
 				img.width(500);
 				img.height(500);
 			} else {
-				img.width(110);
-				img.height(110);
+				img.width(100);
+				img.height(100);
 			}
 
 		}
-	/*	function delete_bid_msg(bidImgStr,img_id,del_img_id){
-			/!*删除图片*!/
-			$("#"+img_id).remove();
-			$("#"+del_img_id).remove();//删除按钮图片也删除
-			/!*给文本框重新赋值*!/
-			document.getElementById("toolPicture").value = document.getElementById("toolPicture").value.toString().replace(bidImgStr+",","");
-			alert("删除成功!");
-		}*/
+		function delete_bid_msg(bidImgStr,img_id,del_img_id){
+			var fileName = document.getElementById("toolPicture").value;
+			/*删除图片*/
+			$.ajax({
+				type : 'post',
+				url:'/wx/deleteFile?key='+fileName,
+				success : function(result) {
+					if (result.code == 0) {
+						$("#"+img_id).remove();
+						$("#"+del_img_id).remove();//删除按钮图片也删除
+						/*给文本框重新赋值*/
+						document.getElementById("toolPicture").value = document.getElementById("toolPicture").value.toString().replace(bidImgStr,"");
+						alert("删除成功!");
+					} else {
+						$.modal.msgError(result.msg);
+					}
+				}
+			});
+
+		}
 	</script>
 </body>
 </html>

@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="periodUnit != null  ">period_unit = #{periodUnit},</if>
             <if test="period != null  ">period = #{period},</if>
             <if test="tradeState != null  ">trade_state = #{tradeState},</if>
-            <if test="toolPicture != null  and toolPicture != ''  ">tool_picture = #{toolPicture},</if>
+            <if test="toolPicture != null  ">tool_picture = #{toolPicture},</if>
             <if test="toolText != null  and toolText != ''  ">tool_text = #{toolText},</if>
             <if test="insurancePremium != null  ">insurance_premium = #{insurancePremium},</if>
             <if test="insuranceBrief != null  and insuranceBrief != ''  ">insurance_brief = #{insuranceBrief},</if>

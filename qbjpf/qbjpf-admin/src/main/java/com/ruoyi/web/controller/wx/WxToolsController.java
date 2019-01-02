@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.wx;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.json.JSONObject;
 import com.ruoyi.common.utils.Arith;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.util.FileUploadUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.system.domain.ToolsInfo;
@@ -49,6 +50,25 @@ public class WxToolsController  extends BaseController {
         return list;
     }
     /**
+     * 删除文件
+     * @param key
+     */
+    @RequestMapping("/deleteFile")
+    @ResponseBody
+    public  AjaxResult deleteFile(String key) {
+        try {
+            if (StringUtils.isNotBlank(key)){
+                key = "coupon/"+key.substring(62);
+                AjaxResult ajaxResult = FileUploadUtils.deleteImgCos(key);
+                return ajaxResult;
+            }
+            return error();
+        }catch (Exception e) {
+            log.error("上传工具图片失败！", e);
+            return error(e.getMessage());
+        }
+    }
+    /**
      * 上传文件
      * @param file
      * @param type(1 图片、2 文本、3 视频、4 音频、5 表格)
@@ -59,13 +79,17 @@ public class WxToolsController  extends BaseController {
         try {
             if (!file.isEmpty()) {
                 String avatar = FileUploadUtils.uploadImgCos(file);
-
-                AjaxResult fileInfo = new AjaxResult();
-                fileInfo.put("fileType", "png");
-                fileInfo.put("size", Arith.div(file.getSize(), 1024, 2));
-                fileInfo.put("fileName", avatar);
-                fileInfo.put("code", 0);
-                return fileInfo;
+                if (StringUtils.isNotBlank(avatar)) {
+                    AjaxResult fileInfo = new AjaxResult();
+                    fileInfo.put("fileType", "png");
+                    fileInfo.put("size", Arith.div(file.getSize(), 1024, 2));
+                    fileInfo.put("fileName", avatar);
+                    fileInfo.put("code", 0);
+                    return fileInfo;
+                }
+                else{
+                    return error();
+                }
             }
             return error();
         }catch (Exception e) {
