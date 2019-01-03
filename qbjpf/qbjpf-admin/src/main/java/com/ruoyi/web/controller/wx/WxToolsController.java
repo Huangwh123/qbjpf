@@ -1,28 +1,19 @@
 package com.ruoyi.web.controller.wx;
-
 import com.ruoyi.common.base.AjaxResult;
-import com.ruoyi.common.json.JSONObject;
 import com.ruoyi.common.utils.Arith;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.util.FileUploadUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.system.domain.ToolsInfo;
 import com.ruoyi.system.service.IToolsInfoService;
-import com.ruoyi.web.controller.system.SysProfileController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/wx")
@@ -97,5 +88,16 @@ public class WxToolsController  extends BaseController {
             return error(e.getMessage());
         }
 
+    }
+
+    /**
+     * 微信工具类详情
+     * */
+    @GetMapping("/detailsTools/{id}")
+    public String detailsCoupon(@PathVariable("id") Long id, ModelMap mmap)
+    {
+        ToolsInfo toolsInfo = toolsInfoService.selectToolsInfoById(id);
+        mmap.put("toolsInfo", toolsInfo);
+        return "web/tools/toolsDetails";
     }
 }

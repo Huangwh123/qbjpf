@@ -107,6 +107,8 @@ textarea{resize:none; background:inherit;}
 .hui-accordion-title-up:after{content:"\e655"; font-family:"hui-font";}
 .hui-accordion-content{width:100%; display:none;}
 /* badge */
+.hui-badget{padding:3px 6px; line-height:1; display:inline-block; font-size:inherit; border-radius:0px; margin:0px 3px; background:#999999; color:#FFFFFF;}
+
 .hui-badge{padding:3px 6px; line-height:1; display:inline-block; font-size:inherit; border-radius:100px; margin:0px 3px; background:#999999; color:#FFFFFF;}
 /* toast */
 #hui-toast{width:100%; position:fixed; z-index:21; left:0; bottom:50px; text-align:center;}
@@ -509,6 +511,7 @@ input[type="month"].hui-picker-valued:before,input[type="date"].hui-picker-value
 .fontbig label, li{
 	font-size: 15px;
 }
+
 
 .hui-form-items .tabbo:after {
     content: '';
