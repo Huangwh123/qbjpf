@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-users-edit" th:object="${users}">
+            <input id="id" name="id" th:field="*{id}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">创建时间：</label>
+				<div class="col-sm-8">
+					<input id="time" name="time" th:field="*{time}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户昵称：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" th:field="*{name}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">图像：</label>
+				<div class="col-sm-8">
+					<input id="photo" name="photo" th:field="*{photo}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">是否允许登录(锁定) 0 否(可以登录) 1 是：</label>
+				<div class="col-sm-8">
+					<input id="isAllowLogin" name="isAllowLogin" th:field="*{isAllowLogin}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">登录次数：</label>
+				<div class="col-sm-8">
+					<input id="loginCount" name="loginCount" th:field="*{loginCount}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">上次登录时间：</label>
+				<div class="col-sm-8">
+					<input id="lastLoginTime" name="lastLoginTime" th:field="*{lastLoginTime}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">上次登录ip：</label>
+				<div class="col-sm-8">
+					<input id="lastLoginIp" name="lastLoginIp" th:field="*{lastLoginIp}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">手机号码：</label>
+				<div class="col-sm-8">
+					<input id="mobile" name="mobile" th:field="*{mobile}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">余额：</label>
+				<div class="col-sm-8">
+					<input id="balance" name="balance" th:field="*{balance}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">冻结金额：</label>
+				<div class="col-sm-8">
+					<input id="freeze" name="freeze" th:field="*{freeze}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户表资金改动标记：</label>
+				<div class="col-sm-8">
+					<input id="sign1" name="sign1" th:field="*{sign1}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户明细表改动标记：</label>
+				<div class="col-sm-8">
+					<input id="sign2" name="sign2" th:field="*{sign2}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">微信Id：</label>
+				<div class="col-sm-8">
+					<input id="openId" name="openId" th:field="*{openId}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "system/users"
+		$("#form-users-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-users-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

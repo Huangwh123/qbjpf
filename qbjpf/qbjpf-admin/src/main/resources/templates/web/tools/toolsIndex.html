@@ -3,10 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<title>共享工具</title>
+		<title>工具出租</title>
 		<script th:src="@{/js/jquery.min.js}"></script>
 		<link rel="stylesheet" th:href="@{/css/hui.css}" media="all">
 		<link rel="stylesheet" th:href="@{/tubiao/iconfont.css}" media="all">
+		<script type="text/javascript" src="http://cdn.52lts.cn/wx/wxlogin.js"></script>
 		<style type="text/css">
 			/* 自定义样式  */
 			
@@ -74,6 +75,17 @@
 
 	<script th:src="@{/js/hui.js}"></script>
 	<script type="text/javascript">
+		var user = localStorage.getItem('UserInfo');
+		if (!user) {
+			wxlib.login((data) => {
+				console.log(data);
+			localStorage.setItem('UserInfo', data);
+		},function(errMsg){
+				alert(errMsg)
+			})
+		}else{
+			console.log('已存在用户信息:'+JSON.stringify(user));
+		}
 		//监听搜索事件
 		document.getElementById('searchKey').addEventListener('keyup', function(e) {
 			//键盘按键搜索才会进入
@@ -155,8 +167,8 @@
 							}
 							var li = document.createElement('li');
 
-							li.innerHTML = '<a href="javascript:hui.toast(\'工享工具暂时只对部分客户开放\');"><img src="'+data[i].toolPicture+
-									'" style="border-radius:10px"/><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
+							li.innerHTML = '<a href="/wx/detailsTools/'+data[i].id+'"><img src="'+data[i].toolPicture+
+									'" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">'+data[i].deposit+
 									'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
 									'</span>元/'+time+'</p></div></a>';
@@ -191,8 +203,8 @@
 							else{
 								time='天';
 							}
-							html += '<li> <a href="javascript:hui.toast(\'工享工具暂时只对部分客户开放\');"><img src="'+data[i].toolPicture+
-									'" style="border-radius:10px" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
+							html += '<li> <a href="/wx/detailsTools/'+data[i].id+'"><img src="'+data[i].toolPicture+
+									'" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">押金:'+data[i].deposit+
 									'元</p><p style="padding-left: 15px;">租金:<span class="hui-badge hui-danger">'+data[i].rentalPrice+
 									'</span>元/'+time+'</p></div></a></li>'
