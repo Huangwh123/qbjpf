@@ -18,7 +18,7 @@ public class Users extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 用户ID */
-	private Long id;
+	private String id;
 	/** 创建时间 */
 	private Date time;
 	/** 用户昵称 */
@@ -46,12 +46,12 @@ public class Users extends BaseEntity
 	/** 微信Id */
 	private String openId;
 
-	public void setId(Long id) 
+	public void setId(String id)
 	{
 		this.id = id;
 	}
 
-	public Long getId() 
+	public String getId()
 	{
 		return id;
 	}

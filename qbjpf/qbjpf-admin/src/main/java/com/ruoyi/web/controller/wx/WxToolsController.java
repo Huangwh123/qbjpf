@@ -4,11 +4,13 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.Arith;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.http.HttpUtils;
 import com.ruoyi.framework.util.FileUploadUtils;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.system.domain.ToolsInfo;
+import com.ruoyi.system.domain.Users;
 import com.ruoyi.system.service.IToolsInfoService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.ruoyi.system.service.IUsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +18,55 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import org.json.JSONObject;
+
 
 @Controller
 @RequestMapping("/wx")
 public class WxToolsController  extends BaseController {
     private static final Logger log = LoggerFactory.getLogger(WxToolsController.class);
-
+    @Autowired
+    private IUsersService iUsersService;
     @Autowired
     private IToolsInfoService toolsInfoService;
+
     /**
      * 微信页面出租工具列表
-     * */
+     */
     @GetMapping("/toolsIndex")
-    public String queryCouponList(){
+    public String queryCouponList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String token = request.getParameter("token");
+        if (StringUtils.isBlank(token)) {
+            try {
+                String url = URLEncoder.encode("http://" + request.getServerName()+":"+request.getServerPort() + request.getRequestURI(), "UTF-8");
+                String redUrl = "http://pf.52lts.cn/wxlogin.html?url=" + url;
+                response.sendRedirect(redUrl);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            String result =  HttpUtils.sendGet("http://api.pf.52lts.cn/api/wx/user/info","token="+token);
+            JSONObject json = new JSONObject(result);
+            if ("ok".equals(json.get("code"))){
+             json = (JSONObject) json.get("data");
+              int res = iUsersService.insertUsersWx(json);
+                return "web/tools/toolsIndex";
+            }
+            else{
+                String url = URLEncoder.encode("http://" + request.getServerName()+":"+request.getServerPort() + request.getRequestURI(), "UTF-8");
+                String redUrl = "http://pf.52lts.cn/wxlogin.html?url=" + url;
+                response.sendRedirect(redUrl);
+            }
+        }
         return "web/tools/toolsIndex";
-    }
-
+}
     @GetMapping("/toolList")
     @ResponseBody
     public List<ToolsInfo> lists(ToolsInfo toolsInfo)

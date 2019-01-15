@@ -259,6 +259,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/wx/toolsIndex", "anon,captchaValidate");
         filterChainDefinitionMap.put("/wx/toolList", "anon,captchaValidate");
         filterChainDefinitionMap.put("/wx/detailsTools/*", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wx/*", "anon,captchaValidate");
 
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());

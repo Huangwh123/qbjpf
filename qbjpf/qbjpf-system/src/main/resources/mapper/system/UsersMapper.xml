@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </where>
     </select>
     
-    <select id="selectUsersById" parameterType="Long" resultMap="UsersResult">
+    <select id="selectUsersById" parameterType="String" resultMap="UsersResult">
         <include refid="selectUsersVo"/>
         where id = #{id}
     </select>
@@ -106,7 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-	<delete id="deleteUsersById" parameterType="Long">
+	<delete id="deleteUsersById" parameterType="String">
         delete from t_users where id = #{id}
     </delete>
 	

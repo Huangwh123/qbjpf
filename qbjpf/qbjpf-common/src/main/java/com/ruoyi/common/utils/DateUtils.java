@@ -152,4 +152,12 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         // long sec = diff % nd % nh % nm / ns;
         return day + "天" + hour + "小时" + min + "分钟";
     }
+    public static long diffDays(Date startDate,Date endDate){
+        long days = 0;
+        long start = startDate.getTime();
+        long end = endDate.getTime();
+        //一天的毫秒数1000 * 60 * 60 * 24=86400000
+        days = (end - start) / 86400000;
+        return days;
+    }
 }

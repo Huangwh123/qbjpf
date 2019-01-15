@@ -1,6 +1,10 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.common.utils.DateUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.UsersMapper;
@@ -27,7 +31,7 @@ public class UsersServiceImpl implements IUsersService
      * @return 用户信息
      */
     @Override
-	public Users selectUsersById(Long id)
+	public Users selectUsersById(String id)
 	{
 	    return usersMapper.selectUsersById(id);
 	}
@@ -79,5 +83,30 @@ public class UsersServiceImpl implements IUsersService
 	{
 		return usersMapper.deleteUsersByIds(Convert.toStrArray(ids));
 	}
-	
+
+	@Override
+	public int insertUsersWx(JSONObject json) {
+			Users users = usersMapper.selectUsersById(json.get("userId").toString());
+			if (users ==null) {
+				users = new Users();
+				users.setId(json.get("userId").toString());
+				users.setName(json.get("name").toString());
+				users.setPhoto(json.get("avatar").toString());
+				users.setLastLoginTime(new Date());
+				usersMapper.insertUsers(users);
+				return 1;
+			}
+			else if (DateUtils.diffDays(users.getLastLoginTime(),new Date())>0){
+				users.setId(json.get("userId").toString());
+				users.setName(json.get("name").toString());
+				users.setPhoto(json.get("avatar").toString());
+				users.setLastLoginTime(new Date());
+				usersMapper.updateUsers(users);
+				return 2;
+			}
+			else{
+				return  3;
+			}
+	}
+
 }

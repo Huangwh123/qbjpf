@@ -1,5 +1,5 @@
 package com.ruoyi.system.service;
-
+import org.json.JSONObject;
 import com.ruoyi.system.domain.Users;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface IUsersService
      * @param id 用户ID
      * @return 用户信息
      */
-	public Users selectUsersById(Long id);
+	public Users selectUsersById(String id);
 	
 	/**
      * 查询用户列表
@@ -50,5 +50,12 @@ public interface IUsersService
      * @return 结果
      */
 	public int deleteUsersByIds(String ids);
-	
+
+	/**
+	 * 新增wx用户
+	 *
+	 * @param users 用户信息
+	 * @return 结果
+	 */
+	public int insertUsersWx(JSONObject users);
 }

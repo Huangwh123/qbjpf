@@ -17,7 +17,7 @@ public interface UsersMapper
      * @param id 用户ID
      * @return 用户信息
      */
-	public Users selectUsersById(Long id);
+	public Users selectUsersById(String id);
 	
 	/**
      * 查询用户列表
@@ -49,7 +49,7 @@ public interface UsersMapper
      * @param id 用户ID
      * @return 结果
      */
-	public int deleteUsersById(Long id);
+	public int deleteUsersById(String id);
 	
 	/**
      * 批量删除用户

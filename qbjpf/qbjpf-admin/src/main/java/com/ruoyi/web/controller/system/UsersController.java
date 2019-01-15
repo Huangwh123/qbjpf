@@ -93,7 +93,7 @@ public class UsersController extends BaseController
 	 * 修改用户
 	 */
 	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Long id, ModelMap mmap)
+	public String edit(@PathVariable("id") String id, ModelMap mmap)
 	{
 		Users users = usersService.selectUsersById(id);
 		mmap.put("users", users);
