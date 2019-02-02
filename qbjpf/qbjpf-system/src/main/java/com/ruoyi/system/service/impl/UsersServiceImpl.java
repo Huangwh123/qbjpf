@@ -85,16 +85,17 @@ public class UsersServiceImpl implements IUsersService
 	}
 
 	@Override
-	public int insertUsersWx(JSONObject json) {
+	public Users insertUsersWx(JSONObject json) {
 			Users users = usersMapper.selectUsersById(json.get("userId").toString());
 			if (users ==null) {
 				users = new Users();
 				users.setId(json.get("userId").toString());
 				users.setName(json.get("name").toString());
 				users.setPhoto(json.get("avatar").toString());
+				users.setPhoto(json.get("avatar").toString());
 				users.setLastLoginTime(new Date());
 				usersMapper.insertUsers(users);
-				return 1;
+				return users;
 			}
 			else if (DateUtils.diffDays(users.getLastLoginTime(),new Date())>0){
 				users.setId(json.get("userId").toString());
@@ -102,10 +103,10 @@ public class UsersServiceImpl implements IUsersService
 				users.setPhoto(json.get("avatar").toString());
 				users.setLastLoginTime(new Date());
 				usersMapper.updateUsers(users);
-				return 2;
+				return users;
 			}
 			else{
-				return  3;
+				return  null;
 			}
 	}
 

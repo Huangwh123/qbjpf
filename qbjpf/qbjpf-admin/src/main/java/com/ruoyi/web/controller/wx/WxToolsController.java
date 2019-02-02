@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+
 import org.json.JSONObject;
 
 
@@ -56,8 +56,9 @@ public class WxToolsController  extends BaseController {
             JSONObject json = new JSONObject(result);
             if ("ok".equals(json.get("code"))){
              json = (JSONObject) json.get("data");
-              int res = iUsersService.insertUsersWx(json);
-                return "web/tools/toolsIndex";
+              Users res = iUsersService.insertUsersWx(json);
+              request.setAttribute("tokenId",token);
+              return "web/tools/toolsIndex";
             }
             else{
                 String url = URLEncoder.encode("http://" + request.getServerName()+":"+request.getServerPort() + request.getRequestURI(), "UTF-8");
@@ -74,6 +75,7 @@ public class WxToolsController  extends BaseController {
 	/*	response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");*/
         startPage();
+        toolsInfo.setTradeState(0);
         List<ToolsInfo> list = toolsInfoService.selectToolsInfoList(toolsInfo);
         return list;
     }
@@ -131,9 +133,9 @@ public class WxToolsController  extends BaseController {
      * 微信工具类详情
      * */
     @GetMapping("/detailsTools/{id}")
-    public String detailsCoupon(@PathVariable("id") Long id, ModelMap mmap, HttpServletRequest request)
-    {   Object o =  request.getParameter("UserInfo");
-
+    public String detailsCoupon(@PathVariable("id") Long id, ModelMap mmap, HttpServletRequest request,HttpServletResponse response)
+    {
+        System.out.println(request.getParameter("tokend"));
         ToolsInfo toolsInfo = toolsInfoService.selectToolsInfoById(id);
         mmap.put("toolsInfo", toolsInfo);
         return "web/tools/toolsDetails";
@@ -141,11 +143,26 @@ public class WxToolsController  extends BaseController {
     /**
      * 修改保存工具
      */
-    @Log(title = "工具", businessType = BusinessType.UPDATE)
-    @PostMapping("/detailsTools/chuzu")
+/*    @Log(title = "工具", businessType = BusinessType.UPDATE)
+    @GetMapping("/detailsTools/chuzu")
     @ResponseBody
-    public AjaxResult detailsCoupon(ToolsInfo toolsInfo)
+    public AjaxResult detailsCoupon(ToolsInfo toolsInfo,HttpServletRequest request,HttpServletResponse response)
     {
-        return toAjax(true);
-    }
+
+        System.out.println(request.getParameter("token"));
+        String result =  HttpUtils.sendGetPayWX("http://api.pf.52lts.cn/api/wx/pay/place","money="+1.00);
+        JSONObject json = new JSONObject(result);
+        String results =  HttpUtils.sendGet("http://api.pf.52lts.cn/api/wx/pay/jssdk/params/"+json.get("data"),null);
+        AjaxResult fileInfo = new AjaxResult();
+        JSONObject jsons = new JSONObject(results);
+        JSONObject jsonss = new JSONObject(jsons.get("data").toString());
+        fileInfo.put("appId", jsonss.get("appId"));
+        fileInfo.put("nonceStr", jsonss.get("nonceStr"));
+        fileInfo.put("package", jsonss.get("package"));
+        fileInfo.put("paySign", jsonss.get("paySign"));
+        fileInfo.put("signType", jsonss.get("signType"));
+        fileInfo.put("timeStamp", jsonss.get("timeStamp"));
+        return fileInfo;
+    }*/
+
 }

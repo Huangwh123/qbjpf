@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
     <select id="selectToolsInfoList" parameterType="ToolsInfo" resultMap="ToolsInfoResult">
         <include refid="selectToolsInfoVo"/>
-        <where>  
+        <where>
             <if test="id != null "> and id = #{id}</if>
              <if test="toolSource != null "> and tool_source = #{toolSource}</if>
              <if test="toolName != null  and toolName != '' "> and tool_name like "%"#{toolName}"%"</if>

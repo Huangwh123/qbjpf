@@ -145,6 +145,7 @@
 		<script th:src="@{/js/hui.js}"></script>
 		<script th:src="@{/js/hui-swipe.js}"></script>
 	<script type="text/javascript">
+		var token= '[[${token}]]';
 		var swipe = new huiSwpie('#swipe');
 		swipe.autoPlay = false;
 		swipe.run();
@@ -202,15 +203,28 @@
 					return false;
 				}
     			hui.confirm('页面直接支付？', ['取消','确定'], function(){
-					var prefix = "/wx/detailsTools"
-					$("#form-wxtX-edit").validate({
-						rules:{
-							xxxx:{
-								required:true,
+					hui.toast('支付功能尚未完善，请联系出租方！');
+				/*	var prefix = "/wx/detailsTools/chuzu";
+					hui.getJSON(
+							'/wx/detailsTools/chuzu',
+							function(res){
+									var data = res;
+									alert(data);
+									WeixinJSBridge.invoke(
+											'getBrandWCPayRequest',
+											data,
+											function (res) {
+												if (res.err_msg == "get_brand_wcpay_request:ok") {
+													weui.toast('支付成功', 3000);
+												}
+											});
 							},
-						}
-					});
-					$.operate.save(prefix + "/chuzu", $('#form-wxtX-edit').serialize());
+							function(){
+								hui.closeLoading();
+								hui.upToast('连接服务器失败！');
+								hui.endRefresh();
+							}
+					);*/
 				},function(){
        				 console.log('取消后执行...');
    				 });

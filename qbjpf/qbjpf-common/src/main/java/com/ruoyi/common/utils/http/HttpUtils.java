@@ -46,14 +46,16 @@ public class HttpUtils
             URL realUrl = new URL(urlNameString);
             URLConnection connection = realUrl.openConnection();
             connection.setRequestProperty("accept", "*/*");
+            connection.setRequestProperty("TOKEN","ead881cff7954c8b8ba459b5029fb058");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.connect();
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            System.out.println(in);
             String line;
             while ((line = in.readLine()) != null)
             {
-                result.append(line);
+                result.append(new String(line.getBytes(), "utf-8"));
             }
             log.info("recv - {}", result);
         }
@@ -244,5 +246,69 @@ public class HttpUtils
         {
             return true;
         }
+    }
+
+    /**
+     *
+     * @param url
+     * @param param
+     * @param token wx token
+     * @return
+     */
+    public static String sendGetPayWX(String url, String param,String token)
+    {
+        StringBuilder result = new StringBuilder();
+        BufferedReader in = null;
+        try
+        {
+            String urlNameString = url + "?" + param;
+            log.info("sendGet - {}", urlNameString);
+            URL realUrl = new URL(urlNameString);
+            URLConnection connection = realUrl.openConnection();
+            connection.setRequestProperty("accept", "*/*");
+            connection.setRequestProperty("TOKEN",token);
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.connect();
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            System.out.println(in);
+            String line;
+            while ((line = in.readLine()) != null)
+            {
+                result.append(new String(line.getBytes(), "utf-8"));
+            }
+            log.info("recv - {}", result);
+        }
+        catch (ConnectException e)
+        {
+            log.error("调用HttpUtils.sendGet ConnectException, url=" + url + ",param=" + param, e);
+        }
+        catch (SocketTimeoutException e)
+        {
+            log.error("调用HttpUtils.sendGet SocketTimeoutException, url=" + url + ",param=" + param, e);
+        }
+        catch (IOException e)
+        {
+            log.error("调用HttpUtils.sendGet IOException, url=" + url + ",param=" + param, e);
+        }
+        catch (Exception e)
+        {
+            log.error("调用HttpsUtil.sendGet Exception, url=" + url + ",param=" + param, e);
+        }
+        finally
+        {
+            try
+            {
+                if (in != null)
+                {
+                    in.close();
+                }
+            }
+            catch (Exception ex)
+            {
+                log.error("调用in.close Exception, url=" + url + ",param=" + param, ex);
+            }
+        }
+        return result.toString();
     }
 }

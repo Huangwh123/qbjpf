@@ -74,6 +74,7 @@
 
 	<script th:src="@{/js/hui.js}"></script>
 	<script type="text/javascript">
+		var token ='[[${tokenId}]]';
 		//监听搜索事件
 		document.getElementById('searchKey').addEventListener('keyup', function(e) {
 			//键盘按键搜索才会进入
@@ -90,8 +91,8 @@
 			document.activeElement.blur();
 			var kwd = hui('#searchKey').val();
 			kwd = kwd.trim();
-			if(kwd.length < 2) {
-				hui.toast('关键字至少2个字符');
+			if(kwd.length < 1) {
+				hui.toast('关键字至少1个字符');
 				hui('.hui-hot-sreach').show();
 				return;
 			}
@@ -155,7 +156,7 @@
 							}
 							var li = document.createElement('li');
 
-							li.innerHTML = '<a href="/wx/detailsTools/'+data[i].id+'"><img src="'+data[i].toolPicture+
+							li.innerHTML = '<a href="/wx/detailsTools/'+data[i].id+'?tokend='+token+'"><img src="'+data[i].toolPicture+'?imageView2/1/w/500/h/400'+
 									'" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">'+data[i].deposit+
 									'</p><p style="padding-left: 10px;"><span class="hui-badge hui-danger">'+data[i].rentalPrice+
@@ -191,7 +192,7 @@
 							else{
 								time='天';
 							}
-							html += '<li> <a href="/wx/detailsTools/'+data[i].id+'"><img src="'+data[i].toolPicture+
+							html += '<li> <a href="/wx/detailsTools/'+data[i].id+'?tokend='+token+'"><img src="'+data[i].toolPicture+'?imageView2/1/w/500/h/400'+
 									'" /><div class="hui-img-list-content"><h1 style="padding-left: 15px;">'+data[i].toolName+
 									'</h1><p style="padding-left: 15px;">押金:'+data[i].deposit+
 									'元</p><p style="padding-left: 15px;">租金:<span class="hui-badge hui-danger">'+data[i].rentalPrice+

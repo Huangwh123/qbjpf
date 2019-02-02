@@ -57,5 +57,5 @@ public interface IUsersService
 	 * @param users 用户信息
 	 * @return 结果
 	 */
-	public int insertUsersWx(JSONObject users);
+	public Users insertUsersWx(JSONObject users);
 }
